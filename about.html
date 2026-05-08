@@ -1,1 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inkwell Media</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #root { background: #0C0C0C; font-family: 'Kanit', sans-serif; }
 
+    body { overflow-x: hidden; color: #D7E2EA; }
+
+    .main-wrapper { background: #0C0C0C; overflow-x: clip; }
+
+    .hero-heading {
+      background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 1.5rem 0;
+    }
+    @media (min-width: 768px) { nav { padding: 2rem 2.5rem 0; } }
+    nav a {
+      color: #D7E2EA;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: opacity 0.2s;
+    }
+    @media (min-width: 768px) { nav a { font-size: 1.125rem; } }
+    @media (min-width: 1024px) { nav a { font-size: 1.4rem; } }
+    nav a:hover { opacity: 0.7; }
+
+    /* ── HERO ── */
+    #hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: clip;
+      position: relative;
+    }
+
+    .hero-h1-wrap { overflow: hidden; width: 100%; margin-top: 1.5rem; }
+    @media (min-width: 640px) { .hero-h1-wrap { margin-top: 1rem; } }
+    @media (min-width: 768px) { .hero-h1-wrap { margin-top: -1.25rem; } }
+
+    .hero-h1 {
+      font-size: clamp(1.4rem, 7vw, 999px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      white-space: nowrap;
+      width: 100%;
+    }
+    @media (min-width: 640px) { .hero-h1 { font-size: 9vw; } }
+    @media (min-width: 768px) { .hero-h1 { font-size: 10vw; } }
+    @media (min-width: 1024px) { .hero-h1 { font-size: 11vw; } }
+    @media (min-width: 1280px) { .hero-h1 { font-size: 10vw; } }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: auto;
+      padding: 0 1.5rem 1.75rem;
+    }
+    @media (min-width: 640px) { .hero-bottom { padding-bottom: 2rem; } }
+    @media (min-width: 768px) { .hero-bottom { padding: 0 2.5rem 2.5rem; } }
+
+    .hero-desc {
+      color: #D7E2EA;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.4;
+      font-size: clamp(0.75rem, 1.4vw, 1.5rem);
+      max-width: 160px;
+    }
+    @media (min-width: 640px) { .hero-desc { max-width: 220px; } }
+    @media (min-width: 768px) { .hero-desc { max-width: 260px; } }
+
+    .hero-portrait-wrap {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      width: 280px;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 60px;
+      margin: -60px;
+    }
+    @media (min-width: 640px) {
+      .hero-portrait-wrap {
+        width: 360px;
+        top: auto;
+        transform: translateX(-50%);
+        bottom: 0;
+        padding: 80px;
+        margin: -80px;
+      }
+    }
+    @media (min-width: 768px) { .hero-portrait-wrap { width: 440px; } }
+    @media (min-width: 1024px) { .hero-portrait-wrap { width: 520px; } }
+
+    .hero-portrait-wrap img {
+      width: 100%;
+      display: block;
+      transition: transform 0.3s ease-out;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── CONTACT BUTTON ── */
+    .contact-btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
+      box-shadow: 0px 4px 4px rgba(181,1,167,0.25), inset 4px 4px 12px #7721B1;
+      outline: 2px solid white;
+      outline-offset: -3px;
+      color: white;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      font-family: 'Kanit', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    @media (min-width: 640px) { .contact-btn { padding: 0.875rem 2.5rem; font-size: 0.875rem; } }
+    @media (min-width: 768px) { .contact-btn { padding: 1rem 3rem; font-size: 1rem; } }
+    .contact-btn:hover { transform: translateY(-2px); box-shadow: 0px 8px 20px rgba(181,1,167,0.4), inset 4px 4px 12px #7721B1; }
+
+    /* ── MARQUEE (16:9 horizontal) ── */
+    #marquee {
+      background: #0C0C0C;
+      padding: 6rem 0 2.5rem;
+      overflow: hidden;
+    }
+    @media (min-width: 640px) { #marquee { padding-top: 8rem; } }
+    @media (min-width: 768px) { #marquee { padding-top: 10rem; } }
+
+    .marquee-row {
+      display: flex;
+      gap: 0.75rem;
+      will-change: transform;
+      margin-bottom: 0.75rem;
+    }
+    .marquee-img {
+      width: 420px;
+      height: 270px;
+      border-radius: 1rem;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 5rem 1.25rem;
+      background: #0C0C0C;
+    }
+    @media (min-width: 640px) { #about { padding: 5rem 2rem; } }
+    @media (min-width: 768px) { #about { padding: 5rem 2.5rem; } }
+
+    .about-deco { position: absolute; pointer-events: none; }
+
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 100%;
+    }
+    @media (min-width: 640px) { .about-content { gap: 3.5rem; } }
+    @media (min-width: 768px) { .about-content { gap: 4rem; } }
+
+    .about-h2 {
+      font-size: clamp(3rem, 12vw, 160px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-align: center;
+    }
+
+    .about-text {
+      color: #D7E2EA;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.65;
+      width: min(88vw, 560px);
+      font-size: clamp(0.9rem, 3.8vw, 1.35rem);
+      word-break: normal;
+      overflow-wrap: break-word;
+      hyphens: none;
+      white-space: normal;
+    }
+
+    .about-text-block {
+      position: relative;
+      width: min(88vw, 560px);
+    }
+
+    .char { opacity: 0.2; transition: opacity 0.1s; display: inline; }
+    .char-wrap { display: inline; }
+
+    /* ── PORTRAIT MARQUEE (9:16 vertical) ── */
+    #portrait-marquee {
+      background: #0C0C0C;
+      padding: 4rem 0;
+      overflow: hidden;
+    }
+
+    .portrait-row {
+      display: flex;
+      gap: 0.75rem;
+      will-change: transform;
+    }
+
+    .portrait-card {
+      width: 180px;
+      height: 320px;
+      border-radius: 1.25rem;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: block;
+    }
+    @media (min-width: 640px) {
+      .portrait-card { width: 220px; height: 390px; }
+    }
+    @media (min-width: 1024px) {
+      .portrait-card { width: 260px; height: 462px; }
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      background: #fff;
+      border-radius: 40px 40px 0 0;
+      padding: 5rem 1.25rem;
+    }
+    @media (min-width: 640px) { #services { border-radius: 50px 50px 0 0; padding: 6rem 2rem; } }
+    @media (min-width: 768px) { #services { border-radius: 60px 60px 0 0; padding: 8rem 2.5rem; } }
+
+    .services-h2 {
+      color: #0C0C0C;
+      font-size: clamp(3rem, 12vw, 160px);
+      font-weight: 900;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 4rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    @media (min-width: 640px) { .services-h2 { margin-bottom: 5rem; } }
+    @media (min-width: 768px) { .services-h2 { margin-bottom: 7rem; } }
+
+    .services-list { max-width: 64rem; margin: 0 auto; }
+
+    .service-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(12,12,12,0.15);
+    }
+    .service-item:last-child { border-bottom: 1px solid rgba(12,12,12,0.15); }
+    @media (min-width: 640px) { .service-item { padding: 2.5rem 0; gap: 2rem; } }
+    @media (min-width: 768px) { .service-item { padding: 3rem 0; gap: 2.5rem; } }
+
+    .service-num {
+      font-size: clamp(3rem, 10vw, 140px);
+      font-weight: 900;
+      color: #0C0C0C;
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: clamp(3rem, 10vw, 140px);
+    }
+
+    .service-info { flex: 1; }
+    .service-name {
+      color: #0C0C0C;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: clamp(1rem, 2.2vw, 2.1rem);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .service-desc {
+      color: #0C0C0C;
+      font-weight: 300;
+      line-height: 1.65;
+      max-width: 42rem;
+      font-size: clamp(0.85rem, 1.6vw, 1.25rem);
+      opacity: 0.6;
+    }
+
+    /* ── PROJECTS ── */
+    #projects {
+      background: #0C0C0C;
+      position: relative;
+      z-index: 10;
+      padding: 5rem 1.25rem 0;
+    }
+    @media (min-width: 640px) { #projects { padding: 6rem 2rem 0; } }
+    @media (min-width: 768px) { #projects { padding: 8rem 2.5rem 0; } }
+
+    .projects-h2 {
+      font-size: clamp(3rem, 12vw, 160px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    @media (min-width: 768px) { .projects-h2 { margin-bottom: 6rem; } }
+
+    .cards-stack {
+      position: relative;
+      perspective: 1400px;
+      perspective-origin: 50% 0%;
+    }
+
+    /* ── FIX 1: tighter card gaps — reduce padding-top offsets ── */
+    /* Mobile: sticky offsets keep cards close together */
+    .card-sticky-wrap {
+      position: sticky;
+      height: 35vh;
+      display: flex;
+      align-items: flex-start;
+    }
+    @media (min-width: 640px) { .card-sticky-wrap { height: 100vh; } }
+
+    .card-sticky-wrap:nth-child(1) { top: 0;    padding-top: 8px;  z-index: 10; }
+    .card-sticky-wrap:nth-child(2) { top: 40px; padding-top: 48px; z-index: 20; }
+    .card-sticky-wrap:nth-child(3) { top: 80px; padding-top: 88px; z-index: 30; }
+    .card-sticky-wrap:nth-child(4) { top: 120px; padding-top: 128px; z-index: 40; }
+
+    @media (min-width: 640px) {
+      .card-sticky-wrap:nth-child(1) { top: 0;     padding-top: 10px; }
+      .card-sticky-wrap:nth-child(2) { top: 44px;  padding-top: 54px; }
+      .card-sticky-wrap:nth-child(3) { top: 88px;  padding-top: 98px; }
+      .card-sticky-wrap:nth-child(4) { top: 132px; padding-top: 142px; }
+    }
+
+    .project-card {
+      width: 100%;
+      border-radius: 30px;
+      border: 2px solid #D7E2EA;
+      background: #0C0C0C;
+      padding: 1rem;
+      will-change: transform;
+      height: auto;
+      overflow: hidden;
+    }
+    @media (min-width: 640px) {
+      .project-card { border-radius: 40px; padding: 1.25rem; height: calc(100vh - 22px); }
+    }
+    @media (min-width: 768px) { .project-card { border-radius: 50px; padding: 1.75rem; } }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+    @media (min-width: 640px) { .card-top-row { gap: 1rem; margin-bottom: 1rem; } }
+
+    .card-num {
+      font-size: clamp(2rem, 7vw, 100px);
+      font-weight: 900;
+      color: #D7E2EA;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .card-meta { flex: 1; }
+    .card-category {
+      color: #D7E2EA;
+      font-size: clamp(0.65rem, 1.2vw, 0.9rem);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.6;
+      display: block;
+    }
+    .card-title {
+      color: #D7E2EA;
+      font-size: clamp(1rem, 2.5vw, 2rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .live-btn {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border-radius: 9999px;
+      border: 2px solid #D7E2EA;
+      color: #D7E2EA;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      cursor: pointer;
+      background: transparent;
+      font-family: 'Kanit', sans-serif;
+      transition: background 0.2s;
+      white-space: nowrap;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) { .live-btn { padding: 0.75rem 2rem; font-size: 0.875rem; } }
+    .live-btn:hover { background: rgba(215, 226, 234, 0.1); }
+
+    .card-images { display: flex; gap: 0.4rem; }
+    @media (min-width: 640px) { .card-images { gap: 0.75rem; } }
+
+    .card-col1 { width: 40%; display: flex; flex-direction: column; gap: 0.4rem; }
+    @media (min-width: 640px) { .card-col1 { gap: 0.75rem; } }
+    .card-col2 { width: 60%; }
+
+    .card-img { width: 100%; object-fit: cover; border-radius: 25px; display: block; }
+    @media (min-width: 640px) { .card-img { border-radius: 35px; } }
+    @media (min-width: 768px) { .card-img { border-radius: 45px; } }
+
+    .card-img-sm1 { height: clamp(70px, 18vw, 180px); }
+    .card-img-sm2 { height: clamp(90px, 22vw, 260px); }
+    .card-img-lg  { height: clamp(170px, 42vw, 450px); }
+
+    /* ── FIX 2: spacer after cards-stack so footer clears the last card ── */
+    .cards-stack-spacer {
+      /* On desktop each sticky card peeks out ~132px from top;
+         last card (card 4) is at top:132px + its full card height (100vh - 22px).
+         We add generous padding so the footer sits well below. */
+      height: 100vh;
+    }
+    @media (max-width: 639px) {
+      .cards-stack-spacer { height: 50vh; }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0C0C0C;
+      text-align: center;
+      padding: 5rem 1.25rem 4rem;
+      color: rgba(215,226,234,0.4);
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 50;
+    }
+
+    /* ── FADE-IN ANIMATIONS ── */
+    .fade-init {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.25,0.1,0.25,1), transform 0.7s cubic-bezier(0.25,0.1,0.25,1);
+    }
+    .fade-init.visible { opacity: 1; transform: translateY(0) translateX(0); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0C0C0C; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  </style>
+</head>
+<body>
+<div class="main-wrapper" id="root">
+
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section id="hero">
+    <nav class="fade-init" data-delay="0" data-x="0" data-y="-20">
+      <span></span>
+    </nav>
+
+    <div class="hero-h1-wrap">
+      <h1 class="hero-h1 hero-heading fade-init" data-delay="0.15" data-y="40" data-x="0">Inkwell Media</h1>
+    </div>
+
+    <!-- Portrait -->
+    <div class="hero-portrait-wrap" id="portrait">
+      <img
+        src="https://shrug-person-78902957.figma.site/_components/v2/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png"
+        alt="Jack portrait"
+        id="portrait-img"
+      />
+    </div>
+
+    <div class="hero-bottom">
+      <p class="hero-desc fade-init" data-delay="0.35" data-y="20" data-x="0">
+        a media company driven by crafting striking and unforgettable brands
+      </p>
+      <a href="#contact" class="contact-btn fade-init" data-delay="0.5" data-y="20" data-x="0">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- ══════════════════ MARQUEE (16:9) ══════════════════ -->
+  <section id="marquee">
+    <div id="row1" class="marquee-row"></div>
+    <div id="row2" class="marquee-row"></div>
+  </section>
+
+  <!-- ══════════════════ ABOUT ══════════════════ -->
+  <section id="about">
+    <img class="about-deco fade-init" data-delay="0.1" data-x="-80" data-y="0"
+      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png"
+      alt="" style="width:clamp(80px,12vw,210px);top:4%;left:max(1%,4px);" />
+
+    <img class="about-deco fade-init" data-delay="0.25" data-x="-80" data-y="0"
+      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png"
+      alt="" style="width:clamp(70px,10vw,180px);bottom:8%;left:max(3%,8px);" />
+
+    <img class="about-deco fade-init" data-delay="0.15" data-x="80" data-y="0"
+      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png"
+      alt="" style="width:clamp(80px,12vw,210px);top:4%;right:max(1%,4px);" />
+
+    <img class="about-deco fade-init" data-delay="0.3" data-x="80" data-y="0"
+      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png"
+      alt="" style="width:clamp(90px,13vw,220px);bottom:8%;right:max(3%,8px);" />
+
+    <div class="about-content">
+      <h2 class="about-h2 hero-heading fade-init" data-delay="0" data-y="40" data-x="0">About us</h2>
+
+      <div class="about-text-block" id="about-text-el">
+        <p class="about-text" id="about-animated-text">With more than five years of experience in media and marketing, we focus on content, growth, and digital presence. We truly enjoy working with businesses that aim to stand out and present their best image. Let&apos;s build something incredible together!</p>
+      </div>
+
+      <a href="#contact" class="contact-btn">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- ══════════════════ PORTRAIT MARQUEE (9:16) ══════════════════ -->
+  <section id="portrait-marquee">
+    <div id="portrait-row" class="portrait-row"></div>
+  </section>
+
+  <!-- ══════════════════ PROJECTS ══════════════════ -->
+  <section id="projects">
+    <h2 class="projects-h2 hero-heading fade-init" data-delay="0" data-y="40" data-x="0">What We Do</h2>
+
+    <div class="cards-stack" id="cards-stack">
+
+      <!-- Card 1 -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-0">
+          <div class="card-top-row">
+            <span class="card-num">01</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Content Creation</span>
+            </div>
+            <a href="#contact" class="live-btn">Get Started</a>
+          </div>
+          <div class="card-images">
+            <div class="card-col1">
+              <img class="card-img card-img-sm1" src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&q=80&fit=crop" alt="" loading="lazy" />
+              <img class="card-img card-img-sm2" src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80&fit=crop" alt="" loading="lazy" />
+            </div>
+            <div class="card-col2">
+              <img class="card-img card-img-lg" src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80&fit=crop" alt="" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-1">
+          <div class="card-top-row">
+            <span class="card-num">02</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Performance Marketing</span>
+            </div>
+            <a href="#contact" class="live-btn">Get Started</a>
+          </div>
+          <div class="card-images">
+            <div class="card-col1">
+              <img class="card-img card-img-sm1" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&fit=crop" alt="" loading="lazy" />
+              <img class="card-img card-img-sm2" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80&fit=crop" alt="" loading="lazy" />
+            </div>
+            <div class="card-col2">
+              <img class="card-img card-img-lg" src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80&fit=crop" alt="" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-2">
+          <div class="card-top-row">
+            <span class="card-num">03</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Web Development</span>
+            </div>
+            <a href="#contact" class="live-btn">Get Started</a>
+          </div>
+          <div class="card-images">
+            <div class="card-col1">
+              <img class="card-img card-img-sm1" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f.png&w=1280&q=85" alt="" loading="lazy" />
+              <img class="card-img card-img-sm2" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b.png&w=1280&q=85" alt="" loading="lazy" />
+            </div>
+            <div class="card-col2">
+              <img class="card-img card-img-lg" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee.png&w=1280&q=85" alt="" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-3">
+          <div class="card-top-row">
+            <span class="card-num">04</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Social Media Management</span>
+            </div>
+            <a href="#contact" class="live-btn">Get Started</a>
+          </div>
+          <div class="card-images">
+            <div class="card-col1">
+              <img class="card-img card-img-sm1" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db.png&w=1280&q=85" alt="" loading="lazy" />
+              <img class="card-img card-img-sm2" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea.png&w=1280&q=85" alt="" loading="lazy" />
+            </div>
+            <div class="card-col2">
+              <img class="card-img card-img-lg" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee.png&w=1280&q=85" alt="" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cards-stack -->
+
+    <!-- FIX 2: spacer pushes footer below the last sticky card -->
+    <div class="cards-stack-spacer"></div>
+
+  </section>
+
+  <!-- ══════════════════ FOOTER ══════════════════ -->
+  <footer id="contact">
+    <p style="color:#D7E2EA;font-size:clamp(1rem,3vw,2rem);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1.5rem;">
+      Let&apos;s work together
+    </p>
+    <a href="mailto:hello@inkwellmedia.co" class="contact-btn" style="display:inline-block;">Contact Us</a>
+    <p style="margin-top:3rem;opacity:0.4;font-size:0.8rem;">© 2025 Inkwell Media. All rights reserved.</p>
+  </footer>
+
+</div><!-- /main-wrapper -->
+
+<script>
+(function() {
+
+  // ── MARQUEE SETUP (16:9) ──
+  const row1Images = [
+    'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
+    'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
+    'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
+    'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
+    'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
+    'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
+    'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
+    'https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif',
+    'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
+    'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
+    'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
+  ];
+  const row2Images = [
+    'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
+    'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
+    'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
+    'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
+    'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
+    'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
+    'https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif',
+    'https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif',
+    'https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif',
+    'https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif',
+  ];
+
+  const portraitImages = [
+    'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
+    'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
+    'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
+    'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
+    'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
+    'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
+    'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
+    'https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif',
+    'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
+    'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
+    'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
+  ];
+
+  function buildRow(el, imgs) {
+    const tripled = [...imgs, ...imgs, ...imgs];
+    tripled.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.className = 'marquee-img';
+      img.loading = 'lazy';
+      img.alt = '';
+      el.appendChild(img);
+    });
+  }
+
+  buildRow(document.getElementById('row1'), row1Images);
+  buildRow(document.getElementById('row2'), row2Images);
+
+  function buildPortraitRow(el, imgs) {
+    const tripled = [...imgs, ...imgs, ...imgs];
+    tripled.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.className = 'portrait-card';
+      img.loading = 'lazy';
+      img.alt = '';
+      el.appendChild(img);
+    });
+  }
+  buildPortraitRow(document.getElementById('portrait-row'), portraitImages);
+
+  // ── SCROLL-DRIVEN MARQUEE ──
+  const marqueeSec = document.getElementById('marquee');
+  const r1 = document.getElementById('row1');
+  const r2 = document.getElementById('row2');
+
+  function updateMarquee() {
+    const sectionTop = marqueeSec.getBoundingClientRect().top + window.scrollY;
+    const offset = (window.scrollY - sectionTop + window.innerHeight) * 0.65;
+    r1.style.transform = `translateX(${offset - 400}px)`;
+    r2.style.transform = `translateX(${-(offset - 400)}px)`;
+  }
+  window.addEventListener('scroll', updateMarquee, { passive: true });
+  updateMarquee();
+
+  // ── PORTRAIT MARQUEE — CSS animation loop ──
+  const portraitRow = document.getElementById('portrait-row');
+  if (portraitRow) {
+    const cardWidth = window.innerWidth >= 1024 ? 260 : window.innerWidth >= 640 ? 220 : 180;
+    const gap = 12;
+    const singleSetWidth = portraitImages.length * (cardWidth + gap);
+
+    let portraitOffset = 0;
+    const PORTRAIT_SPEED = 1.2;
+
+    function animatePortrait() {
+      portraitOffset -= PORTRAIT_SPEED;
+      if (Math.abs(portraitOffset) >= singleSetWidth) {
+        portraitOffset += singleSetWidth;
+      }
+      portraitRow.style.transform = `translateX(${portraitOffset}px)`;
+      requestAnimationFrame(animatePortrait);
+    }
+    animatePortrait();
+  }
+
+  // ── FADE-IN ON SCROLL ──
+  const fadeEls = document.querySelectorAll('.fade-init');
+  fadeEls.forEach(el => {
+    const delay = parseFloat(el.dataset.delay || 0);
+    const y = parseFloat(el.dataset.y || 30);
+    const x = parseFloat(el.dataset.x || 0);
+    el.style.transitionDelay = delay + 's';
+    el.style.transform = `translateY(${y}px) translateX(${x}px)`;
+    el.style.opacity = '0';
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        entry.target.style.transform = 'translateY(0) translateX(0)';
+        entry.target.style.opacity = '1';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '50px' });
+
+  fadeEls.forEach(el => observer.observe(el));
+
+  // ── ANIMATED TEXT (About) ──
+  const aboutText = document.getElementById('about-animated-text');
+  if (aboutText) {
+    const text = aboutText.textContent.trim();
+    aboutText.textContent = '';
+    const chars = text.split('');
+    chars.forEach(ch => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      span.style.opacity = '0.2';
+      aboutText.appendChild(span);
+    });
+
+    const charEls = aboutText.querySelectorAll('.char');
+    const total = charEls.length;
+
+    function updateChars() {
+      const rect = aboutText.getBoundingClientRect();
+      const wh = window.innerHeight;
+      const start = wh * 0.8;
+      const end = wh * 0.2;
+      const progress = 1 - (rect.top - end) / (start - end);
+      const clamped = Math.max(0, Math.min(1, progress));
+      charEls.forEach((span, i) => {
+        const charProgress = i / total;
+        span.style.opacity = clamped >= charProgress ? '1' : '0.2';
+      });
+    }
+    window.addEventListener('scroll', updateChars, { passive: true });
+    updateChars();
+  }
+
+  // ── CARD STACKING ──
+  const cardEls = [
+    document.getElementById('card-0'),
+    document.getElementById('card-1'),
+    document.getElementById('card-2'),
+    document.getElementById('card-3'),
+  ];
+  const stickyWraps = Array.from(document.querySelectorAll('.card-sticky-wrap'));
+  const TILT_PER_LAYER = 3;
+  const SCALE_PER_LAYER = 0.018;
+
+  // ── FIX: set cards-stack height dynamically based on actual layout ──
+  function setStackHeight() {
+    const stackEl = document.getElementById('cards-stack');
+    if (!stackEl) return;
+    // Each card needs enough scroll distance to fully enter; last card gets full viewport
+    const isMobile = window.innerWidth < 640;
+    if (isMobile) {
+      // Mobile: 4 cards × 35vh each + some extra travel
+      stackEl.style.height = 'calc(4 * 35vh + 60vh)';
+    } else {
+      // Desktop: each card at 100vh, staggered tops + travel room
+      stackEl.style.height = 'calc(4 * 100vh + 20vh)';
+    }
+  }
+  setStackHeight();
+  window.addEventListener('resize', setStackHeight);
+
+  function updateCards() {
+    const stackEl = document.getElementById('cards-stack');
+    if (!stackEl) return;
+    const scrolled = -stackEl.getBoundingClientRect().top;
+
+    stickyWraps.forEach((wrap, i) => {
+      const card = cardEls[i];
+      if (!card) return;
+
+      let burial = 0;
+      for (let j = i + 1; j < stickyWraps.length; j++) {
+        const jTop = stickyWraps[j].offsetTop;
+        const travelDist = stickyWraps[j].offsetHeight;
+        const prog = Math.max(0, Math.min(1, (scrolled - jTop + travelDist * 0.5) / (travelDist * 0.7)));
+        burial += prog;
+      }
+
+      const scale = Math.max(0.88, 1 - burial * SCALE_PER_LAYER);
+      const rotateX = burial * TILT_PER_LAYER;
+      const translateZ = -burial * 18;
+
+      card.style.transform = `rotateX(${rotateX}deg) scale(${scale}) translateZ(${translateZ}px)`;
+      card.style.transformOrigin = 'top center';
+      card.style.filter = burial > 0.1 ? `brightness(${Math.max(0.6, 1 - burial * 0.12)})` : '';
+    });
+  }
+
+  window.addEventListener('scroll', updateCards, { passive: true });
+  updateCards();
+
+  // ── MAGNETIC PORTRAIT ──
+  const portraitWrap = document.getElementById('portrait');
+  const portraitImg = document.getElementById('portrait-img');
+  const PADDING = 400;
+  const STRENGTH = 5;
+
+  if (portraitWrap && portraitImg) {
+    let isActive = false;
+
+    document.addEventListener('mousemove', (e) => {
+      const rect = portraitWrap.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const inBounds =
+        e.clientX > rect.left - PADDING &&
+        e.clientX < rect.right + PADDING &&
+        e.clientY > rect.top - PADDING &&
+        e.clientY < rect.bottom + PADDING;
+
+      if (inBounds) {
+        if (!isActive) {
+          portraitImg.style.transition = 'transform 0.3s ease-out';
+          isActive = true;
+        }
+        portraitImg.style.transform = `translate3d(${dx / STRENGTH}px, ${dy / STRENGTH}px, 0)`;
+      } else {
+        if (isActive) {
+          portraitImg.style.transition = 'transform 0.6s ease-in-out';
+          portraitImg.style.transform = 'translate3d(0, 0, 0)';
+          isActive = false;
+        }
+      }
+    });
+  }
+
+})();
+</script>
+</body>
+</html>
