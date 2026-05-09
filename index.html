@@ -1,1 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inkwell Media</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #root { background: #0C0C0C; font-family: 'Kanit', sans-serif; }
 
+    body { overflow-x: hidden; color: #D7E2EA; }
+
+    .main-wrapper { background: #0C0C0C; overflow-x: clip; }
+
+    .hero-heading {
+      background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 1.5rem 0;
+    }
+    @media (min-width: 768px) { nav { padding: 2rem 2.5rem 0; } }
+    nav a {
+      color: #D7E2EA;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: opacity 0.2s;
+    }
+    @media (min-width: 768px) { nav a { font-size: 1.125rem; } }
+    @media (min-width: 1024px) { nav a { font-size: 1.4rem; } }
+    nav a:hover { opacity: 0.7; }
+
+    /* ── HERO ── */
+    #hero {
+      height: 85vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: clip;
+      position: relative;
+    }
+    @media (min-width: 640px) { #hero { height: 100vh; } }
+
+    /* Ambient glow orbs */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(72px);
+    }
+    .hero-orb-1 {
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(182,0,168,0.17) 0%, transparent 70%);
+      top: -80px; left: -100px;
+      animation: orbDrift1 9s ease-in-out infinite alternate;
+    }
+    .hero-orb-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(118,33,176,0.14) 0%, transparent 70%);
+      top: 15%; right: -70px;
+      animation: orbDrift2 11s ease-in-out infinite alternate;
+    }
+    .hero-orb-3 {
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(190,76,0,0.12) 0%, transparent 70%);
+      bottom: 10%; left: 18%;
+      animation: orbDrift3 13s ease-in-out infinite alternate;
+    }
+    @keyframes orbDrift1 {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(44px,32px) scale(1.14); }
+    }
+    @keyframes orbDrift2 {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(-32px,44px) scale(0.88); }
+    }
+    @keyframes orbDrift3 {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(28px,-38px) scale(1.1); }
+    }
+
+    /* Floating particles canvas */
+    #hero-particles-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-h1-wrap {
+      overflow: hidden;
+      width: 100%;
+      margin-top: 1.2rem;
+      position: relative;
+      z-index: 2;
+    }
+    @media (min-width: 640px) { .hero-h1-wrap { margin-top: 1rem; } }
+    @media (min-width: 768px) { .hero-h1-wrap { margin-top: -1.25rem; } }
+
+    .hero-h1 {
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      width: 100%;
+      font-size: clamp(3.2rem, 14vw, 999px);
+      white-space: normal;
+      word-break: break-word;
+      padding: 0 0.5rem;
+      position: relative;
+      text-align: center;
+    }
+    /* Shimmer sweep */
+    .hero-h1::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%);
+      background-size: 200% 100%;
+      animation: textShimmer 4.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes textShimmer {
+      0%   { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
+    @media (min-width: 640px) {
+      .hero-h1 { font-size: clamp(3rem, 10vw, 999px); white-space: nowrap; padding: 0; }
+    }
+    @media (min-width: 768px)  { .hero-h1 { font-size: 10vw; } }
+    @media (min-width: 1024px) { .hero-h1 { font-size: 11vw; } }
+    @media (min-width: 1280px) { .hero-h1 { font-size: 10vw; } }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: auto;
+      padding: 0 1.5rem 1.5rem;
+      position: relative;
+      z-index: 3;
+    }
+    @media (min-width: 640px) { .hero-bottom { padding-bottom: 2rem; } }
+    @media (min-width: 768px) { .hero-bottom { padding: 0 2.5rem 2.5rem; } }
+
+    .hero-desc {
+      color: #D7E2EA;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.4;
+      font-size: clamp(0.68rem, 1.3vw, 1.5rem);
+      max-width: 130px;
+    }
+    @media (min-width: 640px) { .hero-desc { max-width: 220px; font-size: clamp(0.75rem, 1.4vw, 1.5rem); } }
+    @media (min-width: 768px) { .hero-desc { max-width: 260px; } }
+
+    /* ── KPI PILLS ── */
+    .hero-kpis {
+      position: absolute;
+      z-index: 12;
+      display: flex;
+      flex-direction: row;
+      gap: 0.6rem;
+      bottom: 5.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+    @media (min-width: 640px) {
+      .hero-kpis {
+        flex-direction: row;
+        gap: 0.75rem;
+        bottom: 3rem;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+      }
+    }
+    @media (min-width: 768px) { .hero-kpis { bottom: 3.6rem; gap: 1rem; } }
+
+    .hero-kpi {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 0.9rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(215,226,234,0.22);
+      background: rgba(12,12,12,0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow:
+        0 0 0 1px rgba(182,0,168,0.18),
+        0 4px 18px rgba(182,0,168,0.45),
+        0 8px 40px rgba(118,33,176,0.35),
+        0 16px 60px rgba(182,0,168,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+      will-change: transform;
+      animation: kpiLevitate 4s ease-in-out infinite;
+      min-width: 84px;
+    }
+    .hero-kpi:nth-child(2) { animation-delay: 0.9s; }
+    @keyframes kpiLevitate {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-7px); }
+    }
+    @media (min-width: 640px) { .hero-kpi { padding: 0.65rem 1.4rem; min-width: 112px; } }
+    @media (min-width: 768px) { .hero-kpi { padding: 0.75rem 1.75rem; min-width: 130px; } }
+
+    .kpi-number {
+      font-family: 'Kanit', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.05rem, 2.8vw, 1.8rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .kpi-label {
+      font-family: 'Kanit', sans-serif;
+      font-size: clamp(0.5rem, 0.9vw, 0.65rem);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: rgba(215,226,234,0.45);
+      margin-top: 0.15rem;
+    }
+
+    /* ── HERO PORTRAIT — Mobile: centered + floating ── */
+    .hero-portrait-wrap {
+      position: absolute;
+      left: 58%;
+      z-index: 10;
+      width: 244px;
+      top: 50%;
+      transform: translate(-50%, -48%);
+      padding: 40px;
+      margin: -40px;
+    }
+    @media (min-width: 640px) {
+      .hero-portrait-wrap {
+        width: 360px;
+        top: auto;
+        left: 57%;
+        transform: translateX(-50%);
+        bottom: 3rem;
+        padding: 80px;
+        margin: -80px;
+      }
+    }
+    @media (min-width: 768px) { .hero-portrait-wrap { width: 440px; left: 58%; } }
+    @media (min-width: 1024px) { .hero-portrait-wrap { width: 520px; left: 59%; } }
+
+    /* Pulsing glow ring behind logo */
+    .hero-portrait-wrap::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 65%; height: 65%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(182,0,168,0.24) 0%, rgba(118,33,176,0.13) 45%, transparent 72%);
+      filter: blur(30px);
+      z-index: 0;
+      animation: logoGlow 3.5s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes logoGlow {
+      from { opacity: 0.65; transform: translate(-50%, -50%) scale(0.92); }
+      to   { opacity: 1;    transform: translate(-50%, -50%) scale(1.18); }
+    }
+
+    /* Mobile: always float. Desktop: float unless magnetic JS takes over */
+    .hero-portrait-wrap img {
+      width: 100%;
+      display: block;
+      position: relative;
+      z-index: 1;
+      animation: logoFloat 5s ease-in-out infinite;
+    }
+    /* Only desktop portrait gets magnetic treatment */
+    @media (min-width: 640px) {
+      .hero-portrait-wrap img.is-magnetic { animation: none; }
+    }
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-9px); }
+    }
+
+    /* ── CONTACT BUTTON ── */
+    .contact-btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
+      box-shadow: 0px 4px 4px rgba(181,1,167,0.25), inset 4px 4px 12px #7721B1;
+      outline: 2px solid white;
+      outline-offset: -3px;
+      color: white;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      font-family: 'Kanit', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    @media (min-width: 640px) { .contact-btn { padding: 0.875rem 2.5rem; font-size: 0.875rem; } }
+    @media (min-width: 768px) { .contact-btn { padding: 1rem 3rem; font-size: 1rem; } }
+    .contact-btn:hover { transform: translateY(-2px); box-shadow: 0px 8px 20px rgba(181,1,167,0.4), inset 4px 4px 12px #7721B1; }
+
+    /* ── MARQUEE (16:9 horizontal) ── */
+    #marquee {
+      background: #0C0C0C;
+      padding: 6rem 0 2.5rem;
+      overflow: hidden;
+    }
+    @media (min-width: 640px) { #marquee { padding-top: 8rem; } }
+    @media (min-width: 768px) { #marquee { padding-top: 10rem; } }
+
+    /* Outer row: just a clipping/spacing wrapper */
+    .marquee-row {
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Inner track: holds 2 copies of images side by side for seamless CSS loop */
+    .marquee-track {
+      display: flex;
+      gap: 0.75rem;
+      width: max-content;
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* 6 images × (420px + 12px gap) = 2592px per set */
+    /* CSS animation: translate exactly -2592px = one full set, then snap back */
+    @keyframes marqueeLeft {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-2592px); }
+    }
+    @keyframes marqueeRight {
+      0%   { transform: translateX(-2592px); }
+      100% { transform: translateX(0); }
+    }
+
+    /* Mobile only: apply CSS animation */
+    @media (max-width: 639px) {
+      #row1 .marquee-track { animation: marqueeLeft 18s linear infinite; }
+      #row2 .marquee-track { animation: marqueeRight 18s linear infinite; }
+    }
+
+    /* Desktop: JS drives transform on the track directly */
+    @media (min-width: 640px) {
+      .marquee-track { animation: none !important; }
+    }
+
+    .marquee-img {
+      width: 420px;
+      height: 270px;
+      border-radius: 1rem;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 5rem 1.25rem;
+      background: #0C0C0C;
+    }
+    @media (min-width: 640px) { #about { padding: 5rem 2rem; } }
+    @media (min-width: 768px) { #about { padding: 5rem 2.5rem; } }
+
+    .about-deco { position: absolute; pointer-events: none; }
+
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 100%;
+    }
+    @media (min-width: 640px) { .about-content { gap: 3.5rem; } }
+    @media (min-width: 768px) { .about-content { gap: 4rem; } }
+
+    .about-h2 {
+      font-size: clamp(3rem, 12vw, 160px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-align: center;
+    }
+
+    /* ── FIX: wider container so words never break mid-word ── */
+    .about-text-block {
+      position: relative;
+      width: min(88vw, 560px);
+    }
+
+    .about-text {
+      color: #D7E2EA;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.65;
+      width: 100%;
+      font-size: clamp(0.9rem, 1.5vw, 1.35rem);
+      white-space: normal;
+    }
+
+    .char { opacity: 0.2; transition: opacity 0.1s; display: inline; }
+    .char-wrap { display: inline; }
+
+    /* ── PORTRAIT MARQUEE (9:16 vertical) ── */
+    #portrait-marquee {
+      background: #0C0C0C;
+      padding: 4rem 0;
+      overflow: hidden;
+    }
+
+    .portrait-row {
+      display: flex;
+      gap: 0.75rem;
+      will-change: transform;
+    }
+
+    .portrait-card {
+      width: 180px;
+      height: 320px;
+      border-radius: 1.25rem;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: block;
+      background: #111;
+    }
+    @media (min-width: 640px) {
+      .portrait-card { width: 220px; height: 390px; }
+    }
+    @media (min-width: 1024px) {
+      .portrait-card { width: 260px; height: 462px; }
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      background: #fff;
+      border-radius: 40px 40px 0 0;
+      padding: 5rem 1.25rem;
+    }
+    @media (min-width: 640px) { #services { border-radius: 50px 50px 0 0; padding: 6rem 2rem; } }
+    @media (min-width: 768px) { #services { border-radius: 60px 60px 0 0; padding: 8rem 2.5rem; } }
+
+    .services-h2 {
+      color: #0C0C0C;
+      font-size: clamp(3rem, 12vw, 160px);
+      font-weight: 900;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 4rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    @media (min-width: 640px) { .services-h2 { margin-bottom: 5rem; } }
+    @media (min-width: 768px) { .services-h2 { margin-bottom: 7rem; } }
+
+    .services-list { max-width: 64rem; margin: 0 auto; }
+
+    .service-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(12,12,12,0.15);
+    }
+    .service-item:last-child { border-bottom: 1px solid rgba(12,12,12,0.15); }
+    @media (min-width: 640px) { .service-item { padding: 2.5rem 0; gap: 2rem; } }
+    @media (min-width: 768px) { .service-item { padding: 3rem 0; gap: 2.5rem; } }
+
+    .service-num {
+      font-size: clamp(3rem, 10vw, 140px);
+      font-weight: 900;
+      color: #0C0C0C;
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: clamp(3rem, 10vw, 140px);
+    }
+
+    .service-info { flex: 1; }
+    .service-name {
+      color: #0C0C0C;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: clamp(1rem, 2.2vw, 2.1rem);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .service-desc {
+      color: #0C0C0C;
+      font-weight: 300;
+      line-height: 1.65;
+      max-width: 42rem;
+      font-size: clamp(0.85rem, 1.6vw, 1.25rem);
+      opacity: 0.6;
+    }
+
+    /* ── PROJECTS ── */
+    #projects {
+      background: #0C0C0C;
+      position: relative;
+      z-index: 10;
+      padding: 5rem 1.25rem 0;
+      padding-bottom: 20vh;
+    }
+    @media (min-width: 640px) { #projects { padding: 6rem 2rem 40vh; } }
+    @media (min-width: 768px) { #projects { padding: 8rem 2.5rem 40vh; } }
+
+    .projects-heading-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 4rem;
+      padding: 0 0.5rem;
+      overflow: visible;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .projects-h2 {
+      font-size: clamp(3rem, 12vw, 160px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-align: center;
+      overflow: visible;
+      padding-right: 0.04em;
+    }
+
+    .cards-stack {
+      position: relative;
+      perspective: 1400px;
+      perspective-origin: 50% 0%;
+    }
+
+    .card-sticky-wrap {
+      position: sticky;
+      height: 35vh;
+      display: flex;
+      align-items: flex-start;
+    }
+    @media (min-width: 640px) { .card-sticky-wrap { height: 100vh; } }
+
+    .card-sticky-wrap:nth-child(1) { top: 0;    padding-top: 8px;  z-index: 10; }
+    .card-sticky-wrap:nth-child(2) { top: 40px; padding-top: 48px; z-index: 20; }
+    .card-sticky-wrap:nth-child(3) { top: 80px; padding-top: 88px; z-index: 30; }
+    .card-sticky-wrap:nth-child(4) { top: 120px; padding-top: 128px; z-index: 40; }
+
+    @media (min-width: 640px) {
+      .card-sticky-wrap:nth-child(1) { top: 0;     padding-top: 10px; }
+      .card-sticky-wrap:nth-child(2) { top: 44px;  padding-top: 54px; }
+      .card-sticky-wrap:nth-child(3) { top: 88px;  padding-top: 98px; }
+      .card-sticky-wrap:nth-child(4) { top: 132px; padding-top: 142px; }
+    }
+
+    .project-card {
+      width: 100%;
+      border-radius: 30px;
+      border: 2px solid #D7E2EA;
+      background: #0C0C0C;
+      padding: 1rem;
+      will-change: transform;
+      height: auto;
+      overflow: hidden;
+    }
+    @media (min-width: 640px) {
+      .project-card { border-radius: 40px; padding: 1.25rem; height: calc(100vh - 22px); }
+    }
+    @media (min-width: 768px) { .project-card { border-radius: 50px; padding: 1.75rem; } }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+    @media (min-width: 640px) { .card-top-row { gap: 1rem; margin-bottom: 1rem; } }
+
+    .card-num {
+      font-size: clamp(2rem, 7vw, 100px);
+      font-weight: 900;
+      color: #D7E2EA;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .card-meta { flex: 1; }
+    .card-category {
+      color: #D7E2EA;
+      font-size: clamp(0.65rem, 1.2vw, 0.9rem);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.6;
+      display: block;
+    }
+    .card-title {
+      color: #D7E2EA;
+      font-size: clamp(1rem, 2.5vw, 2rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .live-btn {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border-radius: 9999px;
+      border: 2px solid #D7E2EA;
+      color: #D7E2EA;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      cursor: pointer;
+      background: transparent;
+      font-family: 'Kanit', sans-serif;
+      transition: background 0.2s;
+      white-space: nowrap;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) { .live-btn { padding: 0.75rem 2rem; font-size: 0.875rem; } }
+    .live-btn:hover { background: rgba(215, 226, 234, 0.1); }
+
+    .card-images { display: flex; gap: 0.4rem; }
+    @media (min-width: 640px) { .card-images { gap: 0.75rem; } }
+
+    .card-col1 { width: 40%; display: flex; flex-direction: column; gap: 0.4rem; }
+    @media (min-width: 640px) { .card-col1 { gap: 0.75rem; } }
+    .card-col2 { width: 60%; }
+
+    .card-img { width: 100%; object-fit: cover; border-radius: 25px; display: block; }
+    @media (min-width: 640px) { .card-img { border-radius: 35px; } }
+    @media (min-width: 768px) { .card-img { border-radius: 45px; } }
+
+    .card-img-sm1 { height: clamp(70px, 18vw, 180px); }
+    .card-img-sm2 { height: clamp(90px, 22vw, 260px); }
+    .card-img-lg  { height: clamp(170px, 42vw, 450px); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: #0C0C0C;
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+      border-top: 1px solid rgba(215,226,234,0.08);
+    }
+
+    #contact-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 5rem 1.25rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+    @media (min-width: 640px) { .contact-inner { padding: 6rem 2rem 5rem; gap: 3.5rem; } }
+    @media (min-width: 768px) { .contact-inner { padding: 7rem 2.5rem 5rem; gap: 4rem; } }
+
+    .contact-top {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .contact-h2 {
+      font-size: clamp(2.8rem, 11vw, 120px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .contact-sub {
+      color: #D7E2EA;
+      font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+      font-weight: 300;
+      opacity: 0.55;
+      max-width: 360px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .contact-grid { width: 100%; }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.4rem 0;
+      border-top: 1px solid rgba(215,226,234,0.1);
+      text-decoration: none;
+      transition: background 0.2s;
+      border-radius: 8px;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    .contact-item:last-child { border-bottom: 1px solid rgba(215,226,234,0.1); }
+    @media (min-width: 640px) { .contact-item { padding: 1.75rem 0.5rem; } }
+
+    .contact-item:hover .contact-item-value { opacity: 1; transform: translateX(4px); }
+    .contact-item:hover .contact-item-arrow { opacity: 1; transform: translateX(2px) translateY(-2px); }
+    .contact-item:hover { background: rgba(215,226,234,0.03); }
+
+    .contact-item-label {
+      color: #D7E2EA;
+      font-size: clamp(0.7rem, 1.3vw, 0.85rem);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+      opacity: 0.4;
+      min-width: 90px;
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) { .contact-item-label { min-width: 120px; } }
+
+    .contact-item-value {
+      color: #D7E2EA;
+      font-size: clamp(0.9rem, 2vw, 1.35rem);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex: 1;
+      opacity: 0.85;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .contact-item-arrow {
+      color: #D7E2EA;
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      opacity: 0.3;
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .contact-cta { display: flex; justify-content: center; }
+
+    .contact-footer-line {
+      color: rgba(215,226,234,0.2);
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(215,226,234,0.06);
+      width: 100%;
+    }
+
+    /* ── FADE-IN ANIMATIONS ── */
+    .fade-init {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.25,0.1,0.25,1), transform 0.7s cubic-bezier(0.25,0.1,0.25,1);
+    }
+    .fade-init.visible { opacity: 1; transform: translateY(0) translateX(0); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0C0C0C; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  </style>
+</head>
+<body>
+<div class="main-wrapper" id="root">
+
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section id="hero">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <canvas id="hero-particles-canvas"></canvas>
+
+    <nav class="fade-init" data-delay="0" data-x="0" data-y="-20" style="position:relative;z-index:4;">
+      <span></span>
+    </nav>
+
+    <div class="hero-h1-wrap">
+      <h1 class="hero-h1 hero-heading fade-init" data-delay="0.15" data-y="40" data-x="0">Best Media Agency</h1>
+    </div>
+
+    <!-- KPI Pills -->
+    <div class="hero-kpis">
+      <div class="hero-kpi fade-init" data-delay="0.6" data-y="15" data-x="0">
+        <span class="kpi-number" data-target="150" data-suffix="+">0</span>
+        <span class="kpi-label">Projects Done</span>
+      </div>
+      <div class="hero-kpi fade-init" data-delay="0.75" data-y="15" data-x="0">
+        <span class="kpi-number" data-target="5" data-suffix="yrs">0</span>
+        <span class="kpi-label">Experience</span>
+      </div>
+    </div>
+
+    <!-- Logo / Portrait -->
+    <div class="hero-portrait-wrap" id="portrait">
+      <img
+        src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/orangelogo.png?raw=true"
+        alt="Inkwell Media Logo"
+        id="portrait-img"
+        style="width: 200%; margin-left: -50%;"
+      />
+    </div>
+
+    <div class="hero-bottom">
+      <p class="hero-desc fade-init" data-delay="0.35" data-y="20" data-x="0">
+        a media company driven by crafting striking and unforgettable brands
+      </p>
+      <a href="#contact" class="contact-btn fade-init" data-delay="0.5" data-y="20" data-x="0">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- ══════════════════ MARQUEE (16:9) ══════════════════ -->
+  <section id="marquee">
+    <div id="row1" class="marquee-row"></div>
+    <div id="row2" class="marquee-row"></div>
+  </section>
+
+  <!-- ══════════════════ ABOUT ══════════════════ -->
+  <section id="about">
+    <img class="about-deco fade-init" data-delay="0.1" data-x="-80" data-y="0"
+      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png"
+      alt="" style="width:clamp(80px,12vw,210px);top:4%;left:max(1%,4px);" />
+    <img class="about-deco fade-init" data-delay="0.25" data-x="-80" data-y="0"
+      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png"
+      alt="" style="width:clamp(70px,10vw,180px);bottom:8%;left:max(3%,8px);" />
+    <img class="about-deco fade-init" data-delay="0.15" data-x="80" data-y="0"
+      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png"
+      alt="" style="width:clamp(80px,12vw,210px);top:4%;right:max(1%,4px);" />
+    <img class="about-deco fade-init" data-delay="0.3" data-x="80" data-y="0"
+      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png"
+      alt="" style="width:clamp(90px,13vw,220px);bottom:8%;right:max(3%,8px);" />
+
+    <div class="about-content">
+      <h2 class="about-h2 hero-heading fade-init" data-delay="0" data-y="40" data-x="0">About us</h2>
+      <div class="about-text-block" id="about-text-el">
+        <p class="about-text" id="about-animated-text">With more than five years of experience in media and marketing, we focus on content, growth, and digital presence. We truly enjoy working with businesses that aim to stand out and present their best image. Let&apos;s build something incredible together!</p>
+      </div>
+      <a href="#contact" class="contact-btn">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- ══════════════════ PORTRAIT MARQUEE (9:16) ══════════════════ -->
+  <section id="portrait-marquee">
+    <div id="portrait-row" class="portrait-row"></div>
+  </section>
+
+  <!-- ══════════════════ PROJECTS ══════════════════ -->
+  <section id="projects">
+    <div class="projects-heading-wrap fade-init" data-delay="0" data-y="40" data-x="0">
+      <h2 class="projects-h2 hero-heading">What We Do</h2>
+      <img src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/white_exclamation.png?raw=true" alt="" style="height:clamp(4rem,12vw,14rem);width:auto;display:block;flex-shrink:0;" />
+    </div>
+
+    <div class="cards-stack" id="cards-stack">
+
+      <!-- Card 1 — Content Creation -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-0">
+          <div class="card-top-row">
+            <span class="card-num">01</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Content Creation</span>
+            </div>
+            <a href="#contact" class="live-btn">Get Started</a>
+          </div>
+          <div class="card-images">
+            <div class="card-col1">
+              <img class="card-img card-img-sm1" src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&q=80&fit=crop" alt="" loading="lazy" />
+              <img class="card-img card-img-sm2" src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80&fit=crop" alt="" loading="lazy" />
+            </div>
+            <div class="card-col2">
+              <img class="card-img card-img-lg" src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80&fit=crop" alt="" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 — Performance Marketing -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-1">
+          <div class="card-top-row">
+            <span class="card-num">02</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Performance Marketing</span>
+            </div>
+            <a href="#contact" class="live-btn">Get Started</a>
+          </div>
+          <div class="card-images">
+            <div class="card-col1">
+              <img class="card-img card-img-sm1" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&fit=crop" alt="" loading="lazy" />
+              <img class="card-img card-img-sm2" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80&fit=crop" alt="" loading="lazy" />
+            </div>
+            <div class="card-col2">
+              <img class="card-img card-img-lg" src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80&fit=crop" alt="" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 — Web Development -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-2">
+          <div class="card-top-row">
+            <span class="card-num">03</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Web Development</span>
+            </div>
+            <a href="#contact" class="live-btn">Get Started</a>
+          </div>
+          <div class="card-images">
+            <div class="card-col1">
+              <img class="card-img card-img-sm1" src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80&fit=crop" alt="Web design on screen" loading="lazy" />
+              <img class="card-img card-img-sm2" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80&fit=crop" alt="Code editor" loading="lazy" />
+            </div>
+            <div class="card-col2">
+              <img class="card-img card-img-lg" src="https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=800&q=80&fit=crop" alt="Web development workspace" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 — Social Media Management -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-3">
+          <div class="card-top-row">
+            <span class="card-num">04</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Social Media Management</span>
+            </div>
+            <a href="#contact" class="live-btn">Get Started</a>
+          </div>
+          <div class="card-images">
+            <div class="card-col1">
+              <img class="card-img card-img-sm1" src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80&fit=crop" alt="Social media apps" loading="lazy" />
+              <img class="card-img card-img-sm2" src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&q=80&fit=crop" alt="Social media analytics" loading="lazy" />
+            </div>
+            <div class="card-col2">
+              <img class="card-img card-img-lg" src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80&fit=crop" alt="Social media strategy" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cards-stack -->
+  </section>
+
+  <!-- ══════════════════ CONTACT ══════════════════ -->
+  <section id="contact">
+    <canvas id="contact-canvas"></canvas>
+    <div class="contact-inner">
+      <div class="contact-top fade-init" data-delay="0" data-y="40" data-x="0">
+        <h2 class="contact-h2 hero-heading">Get In Touch</h2>
+        <p class="contact-sub">Ready to craft something unforgettable? Drop us a line — we respond fast.</p>
+      </div>
+      <div class="contact-grid fade-init" data-delay="0.15" data-y="30" data-x="0">
+        <a href="mailto:hello@inkwellmedia.co" class="contact-item">
+          <span class="contact-item-label">Email</span>
+          <span class="contact-item-value">hello@inkwellmedia.co</span>
+          <span class="contact-item-arrow">↗</span>
+        </a>
+        <a href="https://www.instagram.com/inkwellmediaa/" target="_blank" class="contact-item">
+          <span class="contact-item-label">Instagram</span>
+          <span class="contact-item-value">@inkwellmediaa</span>
+          <span class="contact-item-arrow">↗</span>
+        </a>
+        <a href="https://wa.me/919172695325" target="_blank" class="contact-item">
+          <span class="contact-item-label">WhatsApp</span>
+          <span class="contact-item-value">+91 91726 95325</span>
+          <span class="contact-item-arrow">↗</span>
+        </a>
+        <a href="https://www.youtube.com/@InkwellMediaProduction" target="_blank" class="contact-item">
+          <span class="contact-item-label">YouTube</span>
+          <span class="contact-item-value">@InkwellMediaProduction</span>
+          <span class="contact-item-arrow">↗</span>
+        </a>
+      </div>
+      <div class="contact-cta fade-init" data-delay="0.3" data-y="20" data-x="0">
+        <a href="mailto:hello@inkwellmedia.co" class="contact-btn">Start a Project</a>
+      </div>
+      <div class="contact-footer-line">
+        <span>© 2025 Inkwell Media. All rights reserved.</span>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /main-wrapper -->
+
+<script>
+(function() {
+
+  // ── DETECT MOBILE ──
+  const isMobile = () => window.innerWidth < 640;
+
+  // ── MARQUEE IMAGES (6 per row, duplicated once for seamless CSS loop) ──
+  const row1Images = [
+    'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
+    'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
+    'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
+    'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
+    'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
+    'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
+  ];
+  const row2Images = [
+    'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
+    'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
+    'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
+    'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
+    'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
+    'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
+  ];
+
+  function buildMarqueeRow(rowEl, imgs) {
+    const track = document.createElement('div');
+    track.className = 'marquee-track';
+    const doubled = [...imgs, ...imgs];
+    doubled.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.className = 'marquee-img';
+      img.loading = 'lazy';
+      img.alt = '';
+      track.appendChild(img);
+    });
+    rowEl.appendChild(track);
+    return track;
+  }
+
+  const track1 = buildMarqueeRow(document.getElementById('row1'), row1Images);
+  const track2 = buildMarqueeRow(document.getElementById('row2'), row2Images);
+
+  const marqueeSec = document.getElementById('marquee');
+
+  const IMG_W = 420;
+  const IMG_GAP = 12;
+  const singleSetWidth16 = row1Images.length * (IMG_W + IMG_GAP);
+
+  let marqueeSectionTop = marqueeSec.offsetTop;
+  window.addEventListener('resize', () => { marqueeSectionTop = marqueeSec.offsetTop; }, { passive: true });
+
+  let marqueeScrollY = window.scrollY;
+  let marqueeRafPending = false;
+
+  function applyDesktopMarquee() {
+    marqueeRafPending = false;
+    const offset = (marqueeScrollY - marqueeSectionTop + window.innerHeight) * 0.65;
+    const v1 = offset - 400;
+    const v2 = -(offset - 400);
+    track1.style.transform = `translate3d(${v1}px,0,0)`;
+    track2.style.transform = `translate3d(${v2}px,0,0)`;
+  }
+
+  function onScrollDesktopMarquee() {
+    marqueeScrollY = window.scrollY;
+    if (!marqueeRafPending) {
+      marqueeRafPending = true;
+      requestAnimationFrame(applyDesktopMarquee);
+    }
+  }
+
+  if (window.innerWidth >= 640) {
+    window.addEventListener('scroll', onScrollDesktopMarquee, { passive: true });
+    applyDesktopMarquee();
+  }
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 640) {
+      window.addEventListener('scroll', onScrollDesktopMarquee, { passive: true });
+    } else {
+      window.removeEventListener('scroll', onScrollDesktopMarquee);
+      track1.style.transform = '';
+      track2.style.transform = '';
+    }
+  }, { passive: true });
+
+  const portraitVideos = [
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-63.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-123.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-437.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-666.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-697.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-714.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-820.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-852.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-948.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-969.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-976.mp4',
+  ];
+
+  // ── PORTRAIT MARQUEE (9:16) — always time-based ──
+  function buildPortraitRow(el, videos) {
+    const tripled = [...videos, ...videos, ...videos];
+    tripled.forEach(src => {
+      const video = document.createElement('video');
+      video.src = src;
+      video.className = 'portrait-card';
+      video.autoplay = true;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = 'none';
+      el.appendChild(video);
+    });
+    el.querySelectorAll('video').forEach(v => {
+      v.preload = 'auto';
+      v.load();
+      v.play().catch(() => {});
+    });
+  }
+
+  buildPortraitRow(document.getElementById('portrait-row'), portraitVideos);
+
+  const portraitRow = document.getElementById('portrait-row');
+  if (portraitRow) {
+    const cardWidth = window.innerWidth >= 1024 ? 260 : window.innerWidth >= 640 ? 220 : 180;
+    const gap = 12;
+    const singleSetWidth = portraitVideos.length * (cardWidth + gap);
+    const PORTRAIT_PX_PER_SEC = 72;
+    let portraitOffset = 0;
+    let lastTs = null;
+
+    function animatePortrait(ts) {
+      if (lastTs !== null) {
+        const delta = ts - lastTs;
+        portraitOffset -= PORTRAIT_PX_PER_SEC * (delta / 1000);
+        if (Math.abs(portraitOffset) >= singleSetWidth) {
+          portraitOffset += singleSetWidth;
+        }
+        portraitRow.style.transform = `translateX(${portraitOffset}px)`;
+      }
+      lastTs = ts;
+      requestAnimationFrame(animatePortrait);
+    }
+    requestAnimationFrame(animatePortrait);
+  }
+
+  // ── FADE-IN ON SCROLL ──
+  const fadeEls = document.querySelectorAll('.fade-init');
+  fadeEls.forEach(el => {
+    const delay = parseFloat(el.dataset.delay || 0);
+    const y = parseFloat(el.dataset.y || 30);
+    const x = parseFloat(el.dataset.x || 0);
+    el.style.transitionDelay = delay + 's';
+    el.style.transform = `translateY(${y}px) translateX(${x}px)`;
+    el.style.opacity = '0';
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        entry.target.style.transform = 'translateY(0) translateX(0)';
+        entry.target.style.opacity = '1';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '50px' });
+
+  fadeEls.forEach(el => observer.observe(el));
+
+  // ── ANIMATED TEXT (About) ──
+  const aboutText = document.getElementById('about-animated-text');
+  if (aboutText) {
+    const text = aboutText.textContent.trim();
+    aboutText.textContent = '';
+    // Wrap each WORD in an inline-block span so browser wraps whole words only
+    const words = text.split(' ');
+    words.forEach((word, wi) => {
+      const wordSpan = document.createElement('span');
+      wordSpan.style.display = 'inline-block';
+      word.split('').forEach(ch => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = ch;
+        span.style.opacity = '0.2';
+        wordSpan.appendChild(span);
+      });
+      aboutText.appendChild(wordSpan);
+      if (wi < words.length - 1) {
+        aboutText.appendChild(document.createTextNode(' '));
+      }
+    });
+
+    const charEls = aboutText.querySelectorAll('.char');
+    const total = charEls.length;
+
+    function updateChars() {
+      const rect = aboutText.getBoundingClientRect();
+      const wh = window.innerHeight;
+      const start = wh * 0.8;
+      const end = wh * 0.2;
+      const progress = 1 - (rect.top - end) / (start - end);
+      const clamped = Math.max(0, Math.min(1, progress));
+      charEls.forEach((span, i) => {
+        const charProgress = i / total;
+        span.style.opacity = clamped >= charProgress ? '1' : '0.2';
+      });
+    }
+    window.addEventListener('scroll', updateChars, { passive: true });
+    updateChars();
+  }
+
+  // ── CARD STACKING ──
+  const cardEls = [
+    document.getElementById('card-0'),
+    document.getElementById('card-1'),
+    document.getElementById('card-2'),
+    document.getElementById('card-3'),
+  ];
+  const stickyWraps = Array.from(document.querySelectorAll('.card-sticky-wrap'));
+  const TILT_PER_LAYER = 3;
+  const SCALE_PER_LAYER = 0.018;
+
+  function setStackHeight() {
+    const stackEl = document.getElementById('cards-stack');
+    if (!stackEl) return;
+    const mobile = window.innerWidth < 640;
+    if (mobile) {
+      stackEl.style.height = 'calc(4 * 35vh + 10vh)';
+    } else {
+      stackEl.style.height = 'calc(4 * 100vh + 20vh)';
+    }
+  }
+  setStackHeight();
+  window.addEventListener('resize', setStackHeight);
+
+  function updateCards() {
+    const stackEl = document.getElementById('cards-stack');
+    if (!stackEl) return;
+    const scrolled = -stackEl.getBoundingClientRect().top;
+
+    stickyWraps.forEach((wrap, i) => {
+      const card = cardEls[i];
+      if (!card) return;
+
+      let burial = 0;
+      for (let j = i + 1; j < stickyWraps.length; j++) {
+        const jTop = stickyWraps[j].offsetTop;
+        const travelDist = stickyWraps[j].offsetHeight;
+        const prog = Math.max(0, Math.min(1, (scrolled - jTop + travelDist * 0.5) / (travelDist * 0.7)));
+        burial += prog;
+      }
+
+      const scale = Math.max(0.88, 1 - burial * SCALE_PER_LAYER);
+      const rotateX = burial * TILT_PER_LAYER;
+      const translateZ = -burial * 18;
+
+      card.style.transform = `rotateX(${rotateX}deg) scale(${scale}) translateZ(${translateZ}px)`;
+      card.style.transformOrigin = 'top center';
+      card.style.filter = burial > 0.1 ? `brightness(${Math.max(0.6, 1 - burial * 0.12)})` : '';
+    });
+  }
+
+  window.addEventListener('scroll', updateCards, { passive: true });
+  updateCards();
+
+  // ── MAGNETIC PORTRAIT — Desktop only ──
+  const heroSection = document.getElementById('hero');
+  const portraitImg = document.getElementById('portrait-img');
+  const STRENGTH = 8;
+
+  if (heroSection && portraitImg && !isMobile()) {
+    let isActive = false;
+
+    heroSection.addEventListener('mousemove', (e) => {
+      if (isMobile()) return;
+
+      const rect = heroSection.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+
+      if (!isActive) {
+        portraitImg.classList.add('is-magnetic');
+        portraitImg.style.transition = 'transform 0.3s ease-out';
+        isActive = true;
+      }
+      portraitImg.style.transform = `translate3d(${dx / STRENGTH}px, ${dy / STRENGTH}px, 0)`;
+    });
+
+    heroSection.addEventListener('mouseleave', () => {
+      if (isMobile()) return;
+      portraitImg.classList.remove('is-magnetic');
+      portraitImg.style.transition = 'transform 0.6s ease-in-out';
+      portraitImg.style.transform = 'translate3d(0, 0, 0)';
+      isActive = false;
+    });
+  }
+
+  // ── HERO PARTICLE CANVAS ──
+  (function() {
+    const pc = document.getElementById('hero-particles-canvas');
+    if (!pc) return;
+    const ctx = pc.getContext('2d');
+    let W, H;
+    function resize() { W = pc.width = pc.offsetWidth; H = pc.height = pc.offsetHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const pts = Array.from({ length: 55 }, () => ({
+      x: Math.random() * 1,
+      y: Math.random() * 1,
+      r: Math.random() * 1.4 + 0.3,
+      speed: Math.random() * 0.00012 + 0.00005,
+      drift: (Math.random() - 0.5) * 0.00004,
+      opacity: Math.random() * 0.35 + 0.08,
+    }));
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, W, H);
+      pts.forEach(p => {
+        p.y -= p.speed;
+        p.x += p.drift;
+        if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+        if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+        ctx.beginPath();
+        ctx.arc(p.x * W, p.y * H, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(215,226,234,${p.opacity})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+  })();
+
+  // ── KPI COUNTER ANIMATION ──
+  (function() {
+    const kpiEls = document.querySelectorAll('.kpi-number[data-target]');
+    if (!kpiEls.length) return;
+    const DURATION = 1800;
+
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / DURATION, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    kpiEls.forEach(el => io.observe(el));
+  })();
+
+  // ── CONTACT CANVAS ──
+  const canvas = document.getElementById('contact-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let W, H;
+
+    function resizeCanvas() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const ORBS = [
+      { x: 0.15, y: 0.3,  r: 0.22, color: 'rgba(182,0,168,0.07)',  dx: 0.00012, dy: 0.00008  },
+      { x: 0.75, y: 0.6,  r: 0.28, color: 'rgba(118,33,176,0.06)', dx: -0.0001, dy: 0.00006  },
+      { x: 0.5,  y: 0.85, r: 0.18, color: 'rgba(190,76,0,0.05)',   dx: 0.00007, dy: -0.00009 },
+      { x: 0.88, y: 0.15, r: 0.15, color: 'rgba(182,0,168,0.05)',  dx: -0.00008,dy: 0.0001   },
+    ];
+
+    const particles = Array.from({ length: 38 }, () => ({
+      x: Math.random(), y: Math.random(),
+      r: Math.random() * 1.2 + 0.4,
+      opacity: Math.random() * 0.25 + 0.05,
+      dx: (Math.random() - 0.5) * 0.00015,
+      dy: (Math.random() - 0.5) * 0.00015,
+    }));
+
+    function drawContact() {
+      ctx.clearRect(0, 0, W, H);
+
+      ORBS.forEach(o => {
+        o.x += o.dx; o.y += o.dy;
+        if (o.x < -0.1 || o.x > 1.1) o.dx *= -1;
+        if (o.y < -0.1 || o.y > 1.1) o.dy *= -1;
+        const grd = ctx.createRadialGradient(o.x*W, o.y*H, 0, o.x*W, o.y*H, o.r * Math.min(W,H));
+        grd.addColorStop(0, o.color);
+        grd.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.beginPath();
+        ctx.arc(o.x*W, o.y*H, o.r * Math.min(W,H), 0, Math.PI*2);
+        ctx.fillStyle = grd;
+        ctx.fill();
+      });
+
+      particles.forEach(p => {
+        p.x += p.dx; p.y += p.dy;
+        if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+        if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x*W, p.y*H, p.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(215,226,234,${p.opacity})`;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawContact);
+    }
+
+    const contactSec = document.getElementById('contact');
+    let contactVisible = false;
+    const contactObs = new IntersectionObserver(entries => {
+      contactVisible = entries[0].isIntersecting;
+      if (contactVisible) drawContact();
+    }, { threshold: 0.01 });
+    contactObs.observe(contactSec);
+  }
+
+})();
+</script>
+</body>
+</html>
