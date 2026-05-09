@@ -249,7 +249,7 @@
       position: absolute;
       left: 58%;
       z-index: 10;
-      width: 244px;
+      width: 300px;
       top: 50%;
       transform: translate(-50%, -48%);
       padding: 40px;
@@ -257,7 +257,7 @@
     }
     @media (min-width: 640px) {
       .hero-portrait-wrap {
-        width: 360px;
+        width: 440px;
         top: auto;
         left: 57%;
         transform: translateX(-50%);
@@ -266,8 +266,8 @@
         margin: -80px;
       }
     }
-    @media (min-width: 768px) { .hero-portrait-wrap { width: 440px; left: 58%; } }
-    @media (min-width: 1024px) { .hero-portrait-wrap { width: 520px; left: 59%; } }
+    @media (min-width: 768px) { .hero-portrait-wrap { width: 520px; left: 58%; } }
+    @media (min-width: 1024px) { .hero-portrait-wrap { width: 620px; left: 59%; } }
 
     /* Pulsing glow ring behind logo */
     .hero-portrait-wrap::before {
@@ -400,6 +400,27 @@
     @media (min-width: 768px) { #about { padding: 5rem 2.5rem; } }
 
     .about-deco { position: absolute; pointer-events: none; }
+
+    @keyframes decoFloat1 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-12px) rotate(2deg); }
+    }
+    @keyframes decoFloat2 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-10px) rotate(-2deg); }
+    }
+    @keyframes decoFloat3 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-14px) rotate(1.5deg); }
+    }
+    @keyframes decoFloat4 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-9px) rotate(-1.5deg); }
+    }
+    .about-deco:nth-of-type(1) { animation: decoFloat1 5s ease-in-out infinite; }
+    .about-deco:nth-of-type(2) { animation: decoFloat2 6.5s ease-in-out infinite; }
+    .about-deco:nth-of-type(3) { animation: decoFloat3 5.8s ease-in-out infinite; }
+    .about-deco:nth-of-type(4) { animation: decoFloat4 7s ease-in-out infinite; }
 
     .about-content {
       display: flex;
@@ -871,14 +892,14 @@
   <!-- ══════════════════ ABOUT ══════════════════ -->
   <section id="about">
     <img class="about-deco fade-init" data-delay="0.1" data-x="-80" data-y="0"
-      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png"
-      alt="" style="width:clamp(80px,12vw,210px);top:4%;left:max(1%,4px);" />
+      src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/3d%20icons/camera.png?raw=true"
+      alt="" style="width:clamp(100px,15vw,260px);top:4%;left:max(1%,4px);" />
     <img class="about-deco fade-init" data-delay="0.25" data-x="-80" data-y="0"
-      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png"
-      alt="" style="width:clamp(70px,10vw,180px);bottom:8%;left:max(3%,8px);" />
+      src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/3d%20icons/instagram.png?raw=true"
+      alt="" style="width:clamp(90px,13vw,220px);bottom:8%;left:max(3%,8px);" />
     <img class="about-deco fade-init" data-delay="0.15" data-x="80" data-y="0"
-      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png"
-      alt="" style="width:clamp(80px,12vw,210px);top:4%;right:max(1%,4px);" />
+      src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/3d%20icons/drone.png?raw=true"
+      alt="" style="width:clamp(100px,15vw,260px);top:4%;right:max(1%,4px);" />
     <img class="about-deco fade-init" data-delay="0.3" data-x="80" data-y="0"
       src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png"
       alt="" style="width:clamp(90px,13vw,220px);bottom:8%;right:max(3%,8px);" />
