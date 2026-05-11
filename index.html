@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Inkwell Media</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #root { background: #0C0C0C; font-family: 'Kanit', sans-serif; }
+    body { overflow-x: hidden; color: #D7E2EA; }
+    .main-wrapper { background: #0C0C0C; }
+
+    .hero-heading {
+      background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 1.25rem;
+      position: relative;
+      z-index: 20;
+    }
+    @media (min-width: 768px) { nav { padding: 1.25rem 2.5rem; } }
+
+    .nav-glass {
+      display: flex;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .nav-mobile-logo { display: block; }
+    }
+
+    /* Logo: mobile 129px (-15% from 152), desktop 140px; nudge left on mobile */
+    .nav-logo-img {
+      height: 129px;
+      width: auto;
+      display: block;
+      margin-left: -0.3rem;
+    }
+    @media (min-width: 768px) { .nav-logo-img { height: 140px; margin-left: 0; } }
+
+    .nav-links-mobile { display: none; }
+
+    nav a {
+      color: #D7E2EA;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    @media (min-width: 1024px) { nav a { font-size: 0.9rem; } }
+    nav a:hover { opacity: 0.6; }
+
+    /* FIX 3: Larger "Get In Touch" button on desktop */
+    .nav-cta {
+      display: inline-block;
+      padding: 0.45rem 1.4rem;
+      border-radius: 9999px;
+      background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
+      box-shadow: 0px 2px 8px rgba(181,1,167,0.35), inset 2px 2px 8px #7721B1;
+      outline: 1.5px solid rgba(255,255,255,0.7);
+      outline-offset: -2px;
+      color: white !important;
+      font-weight: 600;
+      font-size: 0.75rem !important;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: 'Kanit', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    @media (min-width: 768px) {
+      .nav-cta {
+        padding: 0.7rem 2.2rem !important;
+        font-size: 1rem !important;
+        outline-width: 2px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .nav-cta {
+        padding: 0.8rem 2.6rem !important;
+        font-size: 1.05rem !important;
+      }
+    }
+    .nav-cta:hover { transform: translateY(-1px); opacity: 1 !important; box-shadow: 0 4px 16px rgba(181,1,167,0.5), inset 2px 2px 8px #7721B1; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(72px);
+    }
+    .hero-orb-1 {
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(182,0,168,0.17) 0%, transparent 70%);
+      top: -80px; left: -100px;
+      animation: orbDrift1 9s ease-in-out infinite alternate;
+    }
+    .hero-orb-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(118,33,176,0.14) 0%, transparent 70%);
+      top: 15%; right: -70px;
+      animation: orbDrift2 11s ease-in-out infinite alternate;
+    }
+    .hero-orb-3 {
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(190,76,0,0.12) 0%, transparent 70%);
+      bottom: 10%; left: 18%;
+      animation: orbDrift3 13s ease-in-out infinite alternate;
+    }
+    @keyframes orbDrift1 {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(44px,32px) scale(1.14); }
+    }
+    @keyframes orbDrift2 {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(-32px,44px) scale(0.88); }
+    }
+    @keyframes orbDrift3 {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(28px,-38px) scale(1.1); }
+    }
+
+    #hero-particles-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ── HERO BODY ── */
+    .hero-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+      padding: 0 1.25rem 0.75rem;
+      justify-content: flex-start;
+      padding-top: 0;
+      min-height: 0;
+    }
+    @media (min-width: 768px) {
+      .hero-body {
+        flex-direction: row;
+        align-items: center;
+        padding: 0 2.5rem;
+        gap: 2rem;
+        min-height: calc(100vh - 80px);
+        justify-content: flex-start;
+      }
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      z-index: 3;
+      padding-right: 0.75rem;
+      overflow: visible;
+    }
+    @media (min-width: 768px) {
+      .hero-left {
+        flex: 1;
+        max-width: 55%;
+        gap: 2rem;
+        padding-right: 0;
+        overflow: visible;
+      }
+    }
+    @media (min-width: 1024px) {
+      .hero-left { max-width: 52%; overflow: visible; }
+    }
+
+    .hero-tagline {
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: #D7E2EA;
+      font-size: clamp(3rem, 13vw, 5rem);
+      overflow: visible;
+      word-break: break-word;
+      overflow-wrap: normal;
+      padding-right: 0.4em;
+    }
+    @media (min-width: 480px) {
+      .hero-tagline { font-size: clamp(3.2rem, 11vw, 5rem); }
+    }
+    @media (min-width: 768px) {
+      .hero-tagline {
+        font-size: clamp(2.8rem, 4.2vw, 5.5rem);
+        line-height: 1.05;
+        padding-right: 0.3em;
+        overflow: visible;
+      }
+    }
+    @media (min-width: 1024px) {
+      .hero-tagline { font-size: clamp(3rem, 4.8vw, 6rem); }
+    }
+
+    .tagline-accent {
+      font-style: italic;
+      background: linear-gradient(120deg, #B600A8 0%, #7621B0 50%, #BE4C00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 900;
+      display: inline-block;
+      padding-right: 0.08em;
+    }
+
+    /* KPI ROW */
+    .hero-kpis {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      flex-wrap: nowrap;
+    }
+    @media (min-width: 640px) { .hero-kpis { gap: 0.75rem; } }
+    @media (min-width: 768px) { .hero-kpis { gap: 1rem; } }
+
+    .hero-kpi {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 0.7rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(215,226,234,0.22);
+      background: rgba(12,12,12,0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow:
+        0 0 0 1px rgba(182,0,168,0.18),
+        0 4px 18px rgba(182,0,168,0.45),
+        0 8px 40px rgba(118,33,176,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+      will-change: transform;
+      animation: kpiLevitate 4s ease-in-out infinite;
+      flex: 1;
+    }
+    .hero-kpi:nth-child(2) { animation-delay: 0.7s; }
+    .hero-kpi:nth-child(3) { animation-delay: 1.4s; }
+    @keyframes kpiLevitate {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-7px); }
+    }
+    @media (min-width: 640px) { .hero-kpi { padding: 0.65rem 1.2rem; } }
+    @media (min-width: 768px) { .hero-kpi { padding: 0.75rem 1.5rem; flex: none; min-width: 110px; } }
+
+    .kpi-number {
+      font-family: 'Kanit', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1rem, 3.5vw, 1.7rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .kpi-label {
+      font-family: 'Kanit', sans-serif;
+      font-size: clamp(0.5rem, 1.2vw, 0.6rem);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(215,226,234,0.45);
+      margin-top: 0.15rem;
+      text-align: center;
+    }
+
+    /* RIGHT: Logo portrait — hidden on mobile, visible desktop */
+    .hero-right {
+      display: none;
+    }
+    @media (min-width: 768px) {
+      .hero-right {
+        display: flex;
+        flex: 1;
+        max-width: 48%;
+        min-height: 60vh;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+        overflow: hidden;
+      }
+    }
+
+    .hero-portrait-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+    }
+    @media (min-width: 1024px) { .hero-portrait-wrap { max-width: 320px; } }
+    @media (min-width: 1280px) { .hero-portrait-wrap { max-width: 360px; } }
+
+    .hero-portrait-wrap::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 65%; height: 65%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(182,0,168,0.24) 0%, rgba(118,33,176,0.13) 45%, transparent 72%);
+      filter: blur(30px);
+      z-index: 0;
+      animation: logoGlow 3.5s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes logoGlow {
+      from { opacity: 0.65; transform: translate(-50%, -50%) scale(0.92); }
+      to   { opacity: 1;    transform: translate(-50%, -50%) scale(1.18); }
+    }
+
+    .hero-portrait-wrap img {
+      width: 100%;
+      display: block;
+      position: relative;
+      z-index: 1;
+      animation: logoFloat 5s ease-in-out infinite;
+    }
+    .hero-portrait-wrap img.is-magnetic { animation: none; }
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-9px); }
+    }
+
+    /* ── CONTACT BUTTON ── */
+    .contact-btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
+      box-shadow: 0px 4px 4px rgba(181,1,167,0.25), inset 4px 4px 12px #7721B1;
+      outline: 2px solid white;
+      outline-offset: -3px;
+      color: white;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      font-family: 'Kanit', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    @media (min-width: 640px) { .contact-btn { padding: 0.875rem 2.5rem; font-size: 0.875rem; } }
+    @media (min-width: 768px) { .contact-btn { padding: 1rem 3rem; font-size: 1rem; } }
+    .contact-btn:hover { transform: translateY(-2px); box-shadow: 0px 8px 20px rgba(181,1,167,0.4), inset 4px 4px 12px #7721B1; }
+
+    /* ── MARQUEE (16:9 horizontal) ── */
+    #marquee {
+      background: #0C0C0C;
+      padding: 3rem 0 2.5rem;
+      overflow: hidden;
+    }
+    @media (min-width: 640px) { #marquee { padding-top: 4rem; } }
+
+    .marquee-row {
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0.75rem;
+      width: max-content;
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    @keyframes marqueeLeft {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-2592px); }
+    }
+    @keyframes marqueeRight {
+      0%   { transform: translateX(-2592px); }
+      100% { transform: translateX(0); }
+    }
+
+    @media (max-width: 639px) {
+      #row1 .marquee-track { animation: marqueeLeft 18s linear infinite; }
+      #row2 .marquee-track { animation: marqueeRight 18s linear infinite; }
+    }
+    @media (min-width: 640px) {
+      .marquee-track { animation: none !important; }
+    }
+
+    .marquee-img {
+      width: 420px;
+      height: 270px;
+      border-radius: 1rem;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* ── PORTRAIT MARQUEE (9:16) — MOVED BELOW WHAT WE DO ── */
+    #portrait-marquee {
+      background: #0C0C0C;
+      padding: 0 0 4rem;
+      overflow: hidden;
+    }
+    @media (min-width: 640px) {
+      #portrait-marquee { padding: 4rem 0; }
+    }
+    .portrait-row {
+      display: flex;
+      gap: 0.75rem;
+      will-change: transform;
+    }
+    .portrait-card {
+      width: 180px;
+      height: 320px;
+      border-radius: 1.25rem;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: block;
+      background: #111;
+    }
+    @media (min-width: 640px) { .portrait-card { width: 220px; height: 390px; } }
+    @media (min-width: 1024px) { .portrait-card { width: 260px; height: 462px; } }
+
+    /* ── SERVICES / PROJECTS ── */
+    #projects {
+      background: #0C0C0C;
+      position: relative;
+      z-index: 10;
+      padding: 5rem 1.25rem 0;
+      padding-bottom: 0;
+    }
+    @media (min-width: 640px) { #projects { padding: 6rem 2rem 40vh; } }
+    @media (min-width: 768px) { #projects { padding: 8rem 2.5rem 40vh; } }
+
+    .projects-heading-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 2.5rem;
+      padding: 0 0.5rem 0 0;
+      overflow: visible;
+      width: 100%;
+    }
+    @media (min-width: 640px) {
+      .projects-heading-wrap { padding: 0 0.5rem; margin-bottom: 4rem; }
+    }
+
+    .projects-h2 {
+      font-size: clamp(2rem, 10vw, 160px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-align: center;
+      overflow: visible;
+      padding-right: 0.04em;
+    }
+    @media (min-width: 640px) {
+      .projects-h2 { font-size: clamp(3rem, 12vw, 160px); }
+    }
+
+    .projects-exclamation {
+      height: clamp(2.5rem, 10vw, 14rem);
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+      margin-left: -0.6rem;
+    }
+    @media (min-width: 640px) {
+      .projects-exclamation { height: clamp(4rem,12vw,14rem); margin-left: -1.2rem; }
+    }
+
+    .cards-stack {
+      position: relative;
+      perspective: 1400px;
+      perspective-origin: 50% 0%;
+    }
+
+    .card-sticky-wrap {
+      position: sticky;
+      height: 35vh;
+      display: flex;
+      align-items: flex-start;
+    }
+    @media (min-width: 640px) { .card-sticky-wrap { height: 100vh; } }
+
+    /* Cards cascade — each peeks 28px below the previous when stacked */
+    .card-sticky-wrap:nth-child(1) { top: 0px;  padding-top: 8px;  z-index: 10; }
+    .card-sticky-wrap:nth-child(2) { top: 28px; padding-top: 8px;  z-index: 20; }
+    .card-sticky-wrap:nth-child(3) { top: 56px; padding-top: 8px;  z-index: 30; }
+    .card-sticky-wrap:nth-child(4) { top: 84px; padding-top: 8px;  z-index: 40; }
+
+    @media (min-width: 640px) {
+      .card-sticky-wrap:nth-child(1) { top: 0;     padding-top: 10px; }
+      .card-sticky-wrap:nth-child(2) { top: 44px;  padding-top: 54px; }
+      .card-sticky-wrap:nth-child(3) { top: 88px;  padding-top: 98px; }
+      .card-sticky-wrap:nth-child(4) { top: 132px; padding-top: 142px; }
+    }
+
+    .project-card {
+      width: 100%;
+      border-radius: 30px;
+      border: 2px solid #D7E2EA;
+      background: #0C0C0C;
+      padding: 1rem;
+      will-change: transform;
+      height: auto;
+      overflow: hidden;
+    }
+    @media (min-width: 640px) {
+      .project-card { border-radius: 40px; padding: 1.25rem; height: calc(100vh - 22px); }
+    }
+    @media (min-width: 768px) { .project-card { border-radius: 50px; padding: 1.75rem; } }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+    @media (min-width: 640px) { .card-top-row { gap: 1rem; margin-bottom: 1rem; } }
+
+    .card-num {
+      font-size: clamp(2rem, 7vw, 100px);
+      font-weight: 900;
+      color: #D7E2EA;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .card-meta { flex: 1; }
+    .card-category {
+      color: #D7E2EA;
+      font-size: clamp(0.65rem, 1.2vw, 0.9rem);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.6;
+      display: block;
+    }
+    .card-title {
+      color: #D7E2EA;
+      font-size: clamp(1rem, 2.5vw, 2rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    /* ── CARD BODY ── */
+    .card-body {
+      display: flex;
+      gap: 0.75rem;
+      align-items: stretch;
+    }
+    @media (min-width: 640px) { .card-body { gap: 1.25rem; } }
+
+    .card-left-panel {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      justify-content: flex-start;
+    }
+    @media (min-width: 640px) { .card-left-panel { gap: 1rem; } }
+
+    /* FIX 2: Larger bullet text on desktop */
+    .card-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      list-style: none;
+    }
+    .card-bullets li {
+      color: rgba(215,226,234,0.85);
+      font-size: clamp(0.72rem, 1.35vw, 1rem);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      line-height: 1.3;
+    }
+    @media (min-width: 768px) {
+      .card-bullets li {
+        font-size: clamp(1rem, 1.8vw, 1.5rem);
+        gap: 0.6rem;
+        letter-spacing: 0.07em;
+      }
+    }
+    @media (min-width: 1024px) {
+      .card-bullets li {
+        font-size: clamp(1.1rem, 2vw, 1.6rem);
+      }
+    }
+    .card-bullets li::before {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #B600A8, #7621B0);
+      flex-shrink: 0;
+    }
+    @media (min-width: 768px) {
+      .card-bullets li::before {
+        width: 8px;
+        height: 8px;
+      }
+    }
+
+    .card-kpi-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+
+    .card-kpi-circle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1.5px solid rgba(182,0,168,0.5);
+      background: rgba(182,0,168,0.08);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 18px rgba(182,0,168,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+      width: clamp(72px, 12vw, 110px);
+      height: clamp(72px, 12vw, 110px);
+      padding: 6px;
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) {
+      .card-kpi-circle {
+        width: clamp(80px, 9vw, 120px);
+        height: clamp(80px, 9vw, 120px);
+      }
+    }
+    .circle-num {
+      font-weight: 900;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      line-height: 1;
+      background: linear-gradient(180deg, #B600A8 0%, #7621B0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .circle-label {
+      font-size: clamp(0.5rem, 0.9vw, 0.65rem);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(215,226,234,0.55);
+      text-align: center;
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+
+    .card-right-img {
+      width: 60%;
+    }
+    .card-img-lg {
+      width: 100%;
+      height: clamp(170px, 42vw, 450px);
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+    }
+    @media (min-width: 640px) { .card-img-lg { border-radius: 30px; } }
+    @media (min-width: 768px) { .card-img-lg { border-radius: 40px; } }
+
+    /* ── ABOUT ── */
+    #about {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 5rem 1.25rem;
+      background: #0C0C0C;
+    }
+    @media (min-width: 640px) { #about { padding: 5rem 2rem; } }
+    @media (min-width: 768px) { #about { padding: 5rem 2.5rem; } }
+
+    .about-deco { position: absolute; pointer-events: none; }
+
+    @keyframes decoFloat1 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-12px) rotate(2deg); }
+    }
+    @keyframes decoFloat2 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-10px) rotate(-2deg); }
+    }
+    @keyframes decoFloat3 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-14px) rotate(1.5deg); }
+    }
+    @keyframes decoFloat4 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-9px) rotate(-1.5deg); }
+    }
+    .about-deco:nth-of-type(1) { animation: decoFloat1 5s ease-in-out infinite; }
+    .about-deco:nth-of-type(2) { animation: decoFloat2 6.5s ease-in-out infinite; }
+    .about-deco:nth-of-type(3) { animation: decoFloat3 5.8s ease-in-out infinite; }
+    .about-deco:nth-of-type(4) { animation: decoFloat4 7s ease-in-out infinite; }
+
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 100%;
+    }
+    @media (min-width: 640px) { .about-content { gap: 3.5rem; } }
+    @media (min-width: 768px) { .about-content { gap: 4rem; } }
+
+    .about-h2 {
+      font-size: clamp(3rem, 12vw, 160px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-align: center;
+    }
+
+    .about-text-block {
+      position: relative;
+      width: min(88vw, 560px);
+    }
+
+    .about-text {
+      color: #D7E2EA;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.65;
+      width: 100%;
+      font-size: clamp(0.9rem, 1.5vw, 1.35rem);
+      white-space: normal;
+    }
+
+    .char { opacity: 0.2; transition: opacity 0.1s; display: inline; }
+    .char-wrap { display: inline; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: #0C0C0C;
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+      border-top: 1px solid rgba(215,226,234,0.08);
+    }
+    #contact-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .contact-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 5rem 1.25rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+    @media (min-width: 640px) { .contact-inner { padding: 6rem 2rem 5rem; gap: 3.5rem; } }
+    @media (min-width: 768px) { .contact-inner { padding: 7rem 2.5rem 5rem; gap: 4rem; } }
+
+    .contact-top {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .contact-h2 {
+      font-size: clamp(2.8rem, 11vw, 120px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .contact-sub {
+      color: #D7E2EA;
+      font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+      font-weight: 300;
+      opacity: 0.55;
+      max-width: 360px;
+      line-height: 1.6;
+      text-align: center;
+    }
+    .contact-grid { width: 100%; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.4rem 0;
+      border-top: 1px solid rgba(215,226,234,0.1);
+      text-decoration: none;
+      transition: background 0.2s;
+      border-radius: 8px;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    .contact-item:last-child { border-bottom: 1px solid rgba(215,226,234,0.1); }
+    @media (min-width: 640px) { .contact-item { padding: 1.75rem 0.5rem; } }
+    .contact-item:hover .contact-item-value { opacity: 1; transform: translateX(4px); }
+    .contact-item:hover .contact-item-arrow { opacity: 1; transform: translateX(2px) translateY(-2px); }
+    .contact-item:hover { background: rgba(215,226,234,0.03); }
+    .contact-item-label {
+      color: #D7E2EA;
+      font-size: clamp(0.7rem, 1.3vw, 0.85rem);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+      opacity: 0.4;
+      min-width: 90px;
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) { .contact-item-label { min-width: 120px; } }
+    .contact-item-value {
+      color: #D7E2EA;
+      font-size: clamp(0.9rem, 2vw, 1.35rem);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex: 1;
+      opacity: 0.85;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .contact-item-arrow {
+      color: #D7E2EA;
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      opacity: 0.3;
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .contact-cta { display: flex; justify-content: center; }
+    .contact-footer-line {
+      color: rgba(215,226,234,0.2);
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(215,226,234,0.06);
+      width: 100%;
+    }
+
+    /* ── FADE-IN ── */
+    .fade-init {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.25,0.1,0.25,1), transform 0.7s cubic-bezier(0.25,0.1,0.25,1);
+    }
+    .fade-init.visible { opacity: 1; transform: translateY(0) translateX(0); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0C0C0C; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  </style>
+</head>
+<body>
+<canvas id="global-bg-canvas" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+<div class="main-wrapper" id="root" style="position:relative;z-index:1;">
+
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section id="hero">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <canvas id="hero-particles-canvas"></canvas>
+
+    <nav class="fade-init" data-delay="0" data-x="0" data-y="-20" style="position:relative;z-index:20;">
+      <a href="#" class="nav-mobile-logo">
+        <img
+          src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/orangelogo.png?raw=true"
+          alt="Inkwell Media"
+          class="nav-logo-img"
+        />
+      </a>
+
+      <div class="nav-glass">
+        <a href="#contact" class="nav-cta">Get In Touch</a>
+      </div>
+    </nav>
+
+    <!-- HERO BODY -->
+    <div class="hero-body">
+
+      <!-- LEFT -->
+      <div class="hero-left">
+        <h1 class="hero-tagline fade-init" data-delay="0.1" data-y="30" data-x="0">
+          We Create<br>
+          <span class="tagline-accent">Content</span><br>
+          That Grows<br>
+          Your <span class="tagline-accent">Business</span>
+        </h1>
+
+        <div class="hero-kpis">
+          <div class="hero-kpi fade-init" data-delay="0.4" data-y="15" data-x="0">
+            <span class="kpi-number" data-target="100" data-suffix="+">0</span>
+            <span class="kpi-label">Videos</span>
+          </div>
+          <div class="hero-kpi fade-init" data-delay="0.55" data-y="15" data-x="0">
+            <span class="kpi-number" data-target="50" data-suffix="+">0</span>
+            <span class="kpi-label">Brands</span>
+          </div>
+          <div class="hero-kpi fade-init" data-delay="0.7" data-y="15" data-x="0">
+            <span class="kpi-number" data-target="3" data-suffix="yrs+">0</span>
+            <span class="kpi-label">Experience</span>
+          </div>
+        </div>
+
+      </div><!-- /hero-left -->
+
+      <!-- RIGHT: Logo (desktop only) -->
+      <div class="hero-right fade-init" data-delay="0.2" data-y="20" data-x="0">
+        <div class="hero-portrait-wrap" id="portrait">
+          <img
+            src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/orangelogo.png?raw=true"
+            alt="Inkwell Media Logo"
+            id="portrait-img"
+            style="width: 180%; margin-left: -40%; display:block; position:relative; z-index:1;"
+          />
+        </div>
+      </div>
+
+    </div><!-- /hero-body -->
+  </section>
+
+  <!-- ══════════════════ MARQUEE (16:9) ══════════════════ -->
+  <section id="marquee">
+    <div id="row1" class="marquee-row"></div>
+    <div id="row2" class="marquee-row"></div>
+  </section>
+
+  <!-- ══════════════════ PROJECTS / SERVICES ══════════════════ -->
+  <section id="projects">
+    <div class="projects-heading-wrap fade-init" data-delay="0" data-y="40" data-x="0">
+      <h2 class="projects-h2 hero-heading">What We Do</h2>
+      <img src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/white_exclamation.png?raw=true" alt="" class="projects-exclamation" />
+    </div>
+
+    <div class="cards-stack" id="cards-stack">
+
+      <!-- Card 1 — Content Creation -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-0">
+          <div class="card-top-row">
+            <span class="card-num">01</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Content Creation</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-left-panel">
+              <ul class="card-bullets">
+                <li>Short-form videos</li>
+                <li>Reels &amp; TikToks</li>
+                <li>Brand storytelling</li>
+              </ul>
+            </div>
+            <div class="card-right-img">
+              <img class="card-img-lg" src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80&fit=crop" alt="Content Creation" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 — Performance Marketing -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-1">
+          <div class="card-top-row">
+            <span class="card-num">02</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Performance Marketing</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-left-panel">
+              <ul class="card-bullets">
+                <li>Meta &amp; Google ads</li>
+                <li>A/B testing</li>
+                <li>Funnel optimisation</li>
+              </ul>
+            </div>
+            <div class="card-right-img">
+              <img class="card-img-lg" src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80&fit=crop" alt="Performance Marketing" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 — Web Development -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-2">
+          <div class="card-top-row">
+            <span class="card-num">03</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Web Development</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-left-panel">
+              <ul class="card-bullets">
+                <li>Landing pages</li>
+                <li>E-commerce stores</li>
+                <li>Mobile first</li>
+              </ul>
+            </div>
+            <div class="card-right-img">
+              <img class="card-img-lg" src="https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=800&q=80&fit=crop" alt="Web Development" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 — Social Media -->
+      <div class="card-sticky-wrap">
+        <div class="project-card" id="card-3">
+          <div class="card-top-row">
+            <span class="card-num">04</span>
+            <div class="card-meta">
+              <span class="card-category">Service</span>
+              <span class="card-title">Social Media Management</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-left-panel">
+              <ul class="card-bullets">
+                <li>Content calendars</li>
+                <li>Community growth</li>
+                <li>Growth strategy</li>
+              </ul>
+            </div>
+            <div class="card-right-img">
+              <img class="card-img-lg" src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80&fit=crop" alt="Social Media Management" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cards-stack -->
+  </section>
+
+  <!-- ══════════════════ PORTRAIT MARQUEE (9:16) ══════════════════ -->
+  <section id="portrait-marquee">
+    <div id="portrait-row" class="portrait-row"></div>
+  </section>
+
+  <!-- ══════════════════ ABOUT ══════════════════ -->
+  <section id="about">
+    <img class="about-deco fade-init" data-delay="0.1" data-x="-80" data-y="0"
+      src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/3d%20icons/camera.png?raw=true"
+      alt="" style="width:clamp(130px,15vw,260px);top:4%;left:max(1%,4px);" />
+    <img class="about-deco fade-init" data-delay="0.25" data-x="-80" data-y="0"
+      src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/3d%20icons/instagram.png?raw=true"
+      alt="" style="width:clamp(115px,13vw,220px);bottom:8%;left:max(3%,8px);" />
+    <img class="about-deco fade-init" data-delay="0.15" data-x="80" data-y="0"
+      src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/3d%20icons/drone.png?raw=true"
+      alt="" style="width:clamp(130px,15vw,260px);top:4%;right:max(1%,4px);" />
+    <img class="about-deco fade-init" data-delay="0.3" data-x="80" data-y="0"
+      src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png"
+      alt="" style="width:clamp(115px,13vw,220px);bottom:8%;right:max(3%,8px);" />
+
+    <div class="about-content">
+      <h2 class="about-h2 hero-heading fade-init" data-delay="0" data-y="40" data-x="0">About us</h2>
+      <div class="about-text-block" id="about-text-el">
+        <p class="about-text" id="about-animated-text">With more than five years of experience in media and marketing, we focus on content, growth, and digital presence. We truly enjoy working with businesses that aim to stand out and present their best image. Let&apos;s build something incredible together!</p>
+      </div>
+      <a href="#contact" class="contact-btn">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- ══════════════════ CONTACT ══════════════════ -->
+  <section id="contact">
+    <canvas id="contact-canvas"></canvas>
+    <div class="contact-inner">
+      <div class="contact-top fade-init" data-delay="0" data-y="40" data-x="0">
+        <h2 class="contact-h2 hero-heading">Get In Touch</h2>
+        <p class="contact-sub">Ready to craft something unforgettable? Drop us a line — we respond fast.</p>
+      </div>
+      <div class="contact-grid fade-init" data-delay="0.15" data-y="30" data-x="0">
+        <a href="mailto:hello@inkwellmedia.co" class="contact-item">
+          <span class="contact-item-label">Email</span>
+          <span class="contact-item-value">hello@inkwellmedia.co</span>
+          <span class="contact-item-arrow">↗</span>
+        </a>
+        <a href="https://www.instagram.com/inkwellmediaa/" target="_blank" class="contact-item">
+          <span class="contact-item-label">Instagram</span>
+          <span class="contact-item-value">@inkwellmediaa</span>
+          <span class="contact-item-arrow">↗</span>
+        </a>
+        <a href="https://wa.me/919172695325" target="_blank" class="contact-item">
+          <span class="contact-item-label">WhatsApp</span>
+          <span class="contact-item-value">+91 91726 95325</span>
+          <span class="contact-item-arrow">↗</span>
+        </a>
+        <a href="https://www.youtube.com/@InkwellMediaProduction" target="_blank" class="contact-item">
+          <span class="contact-item-label">YouTube</span>
+          <span class="contact-item-value">@InkwellMediaProduction</span>
+          <span class="contact-item-arrow">↗</span>
+        </a>
+      </div>
+      <div class="contact-cta fade-init" data-delay="0.3" data-y="20" data-x="0">
+        <a href="mailto:hello@inkwellmedia.co" class="contact-btn">Start a Project</a>
+      </div>
+      <div class="contact-footer-line">
+        <span>© 2025 Inkwell Media. All rights reserved.</span>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /main-wrapper -->
+
+<script>
+(function() {
+
+  const isMobile = () => window.innerWidth < 640;
+
+  // ── MARQUEE IMAGES ──
+  const row1Images = [
+    'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
+    'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
+    'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
+    'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
+    'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
+    'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
+  ];
+  const row2Images = [
+    'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
+    'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
+    'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
+    'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
+    'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
+    'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
+  ];
+
+  function buildMarqueeRow(rowEl, imgs) {
+    const track = document.createElement('div');
+    track.className = 'marquee-track';
+    [...imgs, ...imgs].forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.className = 'marquee-img';
+      img.loading = 'lazy';
+      img.alt = '';
+      track.appendChild(img);
+    });
+    rowEl.appendChild(track);
+    return track;
+  }
+
+  const track1 = buildMarqueeRow(document.getElementById('row1'), row1Images);
+  const track2 = buildMarqueeRow(document.getElementById('row2'), row2Images);
+  const marqueeSec = document.getElementById('marquee');
+
+  let marqueeSectionTop = marqueeSec.offsetTop;
+  window.addEventListener('resize', () => { marqueeSectionTop = marqueeSec.offsetTop; }, { passive: true });
+
+  let marqueeScrollY = window.scrollY;
+  let marqueeRafPending = false;
+
+  function applyDesktopMarquee() {
+    marqueeRafPending = false;
+    const offset = (marqueeScrollY - marqueeSectionTop + window.innerHeight) * 0.65;
+    track1.style.transform = `translate3d(${offset - 400}px,0,0)`;
+    track2.style.transform = `translate3d(${-(offset - 400)}px,0,0)`;
+  }
+
+  function onScrollDesktopMarquee() {
+    marqueeScrollY = window.scrollY;
+    if (!marqueeRafPending) {
+      marqueeRafPending = true;
+      requestAnimationFrame(applyDesktopMarquee);
+    }
+  }
+
+  if (window.innerWidth >= 640) {
+    window.addEventListener('scroll', onScrollDesktopMarquee, { passive: true });
+    applyDesktopMarquee();
+  }
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 640) {
+      window.addEventListener('scroll', onScrollDesktopMarquee, { passive: true });
+    } else {
+      window.removeEventListener('scroll', onScrollDesktopMarquee);
+      track1.style.transform = '';
+      track2.style.transform = '';
+    }
+  }, { passive: true });
+
+  // ── PORTRAIT MARQUEE ──
+  const portraitVideos = [
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-63.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-123.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-437.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-666.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-697.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-714.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-820.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-852.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-948.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-969.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-976.mp4',
+  ];
+
+  function buildPortraitRow(el, videos) {
+    [...videos, ...videos, ...videos].forEach(src => {
+      const video = document.createElement('video');
+      video.src = src;
+      video.className = 'portrait-card';
+      video.autoplay = true;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = 'none';
+      el.appendChild(video);
+    });
+    el.querySelectorAll('video').forEach(v => {
+      v.preload = 'auto';
+      v.load();
+      v.play().catch(() => {});
+    });
+  }
+
+  buildPortraitRow(document.getElementById('portrait-row'), portraitVideos);
+
+  const portraitRow = document.getElementById('portrait-row');
+  if (portraitRow) {
+    const cardWidth = window.innerWidth >= 1024 ? 260 : window.innerWidth >= 640 ? 220 : 180;
+    const singleSetWidth = portraitVideos.length * (cardWidth + 12);
+    const PORTRAIT_PX_PER_SEC = 72;
+    let portraitOffset = 0;
+    let lastTs = null;
+    function animatePortrait(ts) {
+      if (lastTs !== null) {
+        portraitOffset -= PORTRAIT_PX_PER_SEC * ((ts - lastTs) / 1000);
+        if (Math.abs(portraitOffset) >= singleSetWidth) portraitOffset += singleSetWidth;
+        portraitRow.style.transform = `translateX(${portraitOffset}px)`;
+      }
+      lastTs = ts;
+      requestAnimationFrame(animatePortrait);
+    }
+    requestAnimationFrame(animatePortrait);
+  }
+
+  // ── FADE-IN ON SCROLL ──
+  const fadeEls = document.querySelectorAll('.fade-init');
+  fadeEls.forEach(el => {
+    const delay = parseFloat(el.dataset.delay || 0);
+    const y = parseFloat(el.dataset.y || 30);
+    const x = parseFloat(el.dataset.x || 0);
+    el.style.transitionDelay = delay + 's';
+    el.style.transform = `translateY(${y}px) translateX(${x}px)`;
+    el.style.opacity = '0';
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        entry.target.style.transform = 'translateY(0) translateX(0)';
+        entry.target.style.opacity = '1';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '50px' });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // ── ANIMATED TEXT (About) ──
+  const aboutText = document.getElementById('about-animated-text');
+  if (aboutText) {
+    const text = aboutText.textContent.trim();
+    aboutText.textContent = '';
+    text.split(' ').forEach((word, wi, arr) => {
+      const wordSpan = document.createElement('span');
+      wordSpan.style.display = 'inline-block';
+      word.split('').forEach(ch => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = ch;
+        span.style.opacity = '0.2';
+        wordSpan.appendChild(span);
+      });
+      aboutText.appendChild(wordSpan);
+      if (wi < arr.length - 1) aboutText.appendChild(document.createTextNode(' '));
+    });
+    const charEls = aboutText.querySelectorAll('.char');
+    const total = charEls.length;
+    function updateChars() {
+      const rect = aboutText.getBoundingClientRect();
+      const wh = window.innerHeight;
+      const progress = 1 - (rect.top - wh * 0.2) / (wh * 0.6);
+      const clamped = Math.max(0, Math.min(1, progress));
+      charEls.forEach((span, i) => {
+        span.style.opacity = clamped >= i / total ? '1' : '0.2';
+      });
+    }
+    window.addEventListener('scroll', updateChars, { passive: true });
+    updateChars();
+  }
+
+  // ── CARD STACKING ──
+  const cardEls = ['card-0','card-1','card-2','card-3'].map(id => document.getElementById(id));
+  const stickyWraps = Array.from(document.querySelectorAll('.card-sticky-wrap'));
+
+  // ── DYNAMIC STICKY TOPS (mobile only) ──
+  const headingWrap = document.querySelector('.projects-heading-wrap');
+  const projectsSection = document.getElementById('projects');
+
+  function applyCardTops() {
+    if (window.innerWidth >= 640) return;
+    const PEEK = 28;
+    stickyWraps.forEach((wrap, i) => {
+      wrap.style.top = (i * PEEK) + 'px';
+    });
+  }
+  requestAnimationFrame(() => { applyCardTops(); });
+  window.addEventListener('resize', applyCardTops, { passive: true });
+  const TILT_PER_LAYER = 3;
+  const SCALE_PER_LAYER = 0.018;
+
+  function setStackHeight() {
+    const stackEl = document.getElementById('cards-stack');
+    if (!stackEl) return;
+    stackEl.style.height = window.innerWidth < 640
+      ? 'calc(4 * 35vh + 2vh)'
+      : 'calc(4 * 100vh + 20vh)';
+  }
+  setStackHeight();
+  window.addEventListener('resize', setStackHeight);
+
+  function updateCards() {
+    const stackEl = document.getElementById('cards-stack');
+    if (!stackEl) return;
+    const scrolled = -stackEl.getBoundingClientRect().top;
+    stickyWraps.forEach((wrap, i) => {
+      const card = cardEls[i];
+      if (!card) return;
+      let burial = 0;
+      for (let j = i + 1; j < stickyWraps.length; j++) {
+        const prog = Math.max(0, Math.min(1,
+          (scrolled - stickyWraps[j].offsetTop + stickyWraps[j].offsetHeight * 0.5) / (stickyWraps[j].offsetHeight * 0.7)
+        ));
+        burial += prog;
+      }
+      card.style.transform = `rotateX(${burial * TILT_PER_LAYER}deg) scale(${Math.max(0.88, 1 - burial * SCALE_PER_LAYER)}) translateZ(${-burial * 18}px)`;
+      card.style.transformOrigin = 'top center';
+      card.style.filter = burial > 0.1 ? `brightness(${Math.max(0.6, 1 - burial * 0.12)})` : '';
+    });
+  }
+  window.addEventListener('scroll', updateCards, { passive: true });
+  updateCards();
+
+  // ── MAGNETIC PORTRAIT ──
+  const heroSection = document.getElementById('hero');
+  const portraitImg = document.getElementById('portrait-img');
+  if (heroSection && portraitImg && !isMobile()) {
+    let isActive = false;
+    heroSection.addEventListener('mousemove', (e) => {
+      if (isMobile()) return;
+      const rect = heroSection.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+      if (!isActive) { portraitImg.classList.add('is-magnetic'); portraitImg.style.transition = 'transform 0.3s ease-out'; isActive = true; }
+      portraitImg.style.transform = `translate3d(${dx / 8}px, ${dy / 8}px, 0)`;
+    });
+    heroSection.addEventListener('mouseleave', () => {
+      if (isMobile()) return;
+      portraitImg.classList.remove('is-magnetic');
+      portraitImg.style.transition = 'transform 0.6s ease-in-out';
+      portraitImg.style.transform = 'translate3d(0, 0, 0)';
+      isActive = false;
+    });
+  }
+
+  // ── HERO PARTICLE CANVAS ──
+  (function() {
+    const pc = document.getElementById('hero-particles-canvas');
+    if (!pc) return;
+    const ctx = pc.getContext('2d');
+    let W, H;
+    function resize() { W = pc.width = pc.offsetWidth; H = pc.height = pc.offsetHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    const pts = Array.from({ length: 55 }, () => ({
+      x: Math.random(), y: Math.random(),
+      r: Math.random() * 1.4 + 0.3,
+      speed: Math.random() * 0.00012 + 0.00005,
+      drift: (Math.random() - 0.5) * 0.00004,
+      opacity: Math.random() * 0.35 + 0.08,
+    }));
+    function drawParticles() {
+      ctx.clearRect(0, 0, W, H);
+      pts.forEach(p => {
+        p.y -= p.speed; p.x += p.drift;
+        if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+        if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+        ctx.beginPath();
+        ctx.arc(p.x * W, p.y * H, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(215,226,234,${p.opacity})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+  })();
+
+  // ── KPI COUNTER ──
+  (function() {
+    const kpiEls = document.querySelectorAll('.kpi-number[data-target]');
+    const DURATION = 1800;
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const start = performance.now();
+      function step(now) {
+        const eased = 1 - Math.pow(1 - Math.min((now - start) / DURATION, 1), 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (eased < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { animateCounter(entry.target); io.unobserve(entry.target); } });
+    }, { threshold: 0.5 });
+    kpiEls.forEach(el => io.observe(el));
+  })();
+
+  // ── CONTACT CANVAS ──
+  const canvas = document.getElementById('contact-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    function resizeCanvas() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    const ORBS = [
+      { x: 0.15, y: 0.3,  r: 0.22, color: 'rgba(182,0,168,0.07)',  dx: 0.00012, dy: 0.00008  },
+      { x: 0.75, y: 0.6,  r: 0.28, color: 'rgba(118,33,176,0.06)', dx: -0.0001, dy: 0.00006  },
+      { x: 0.5,  y: 0.85, r: 0.18, color: 'rgba(190,76,0,0.05)',   dx: 0.00007, dy: -0.00009 },
+      { x: 0.88, y: 0.15, r: 0.15, color: 'rgba(182,0,168,0.05)',  dx: -0.00008,dy: 0.0001   },
+    ];
+    const particles = Array.from({ length: 38 }, () => ({
+      x: Math.random(), y: Math.random(),
+      r: Math.random() * 1.2 + 0.4,
+      opacity: Math.random() * 0.25 + 0.05,
+      dx: (Math.random() - 0.5) * 0.00015,
+      dy: (Math.random() - 0.5) * 0.00015,
+    }));
+    function drawContact() {
+      ctx.clearRect(0, 0, W, H);
+      ORBS.forEach(o => {
+        o.x += o.dx; o.y += o.dy;
+        if (o.x < -0.1 || o.x > 1.1) o.dx *= -1;
+        if (o.y < -0.1 || o.y > 1.1) o.dy *= -1;
+        const grd = ctx.createRadialGradient(o.x*W, o.y*H, 0, o.x*W, o.y*H, o.r * Math.min(W,H));
+        grd.addColorStop(0, o.color);
+        grd.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.beginPath();
+        ctx.arc(o.x*W, o.y*H, o.r * Math.min(W,H), 0, Math.PI*2);
+        ctx.fillStyle = grd; ctx.fill();
+      });
+      particles.forEach(p => {
+        p.x += p.dx; p.y += p.dy;
+        if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+        if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x*W, p.y*H, p.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(215,226,234,${p.opacity})`; ctx.fill();
+      });
+      requestAnimationFrame(drawContact);
+    }
+    const contactObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) drawContact();
+    }, { threshold: 0.01 });
+    contactObs.observe(document.getElementById('contact'));
+  }
+
+  // ── GLOBAL BG CANVAS ──
+  (function() {
+    const gc = document.getElementById('global-bg-canvas');
+    if (!gc) return;
+    const ctx = gc.getContext('2d');
+    let W, H;
+    function resize() { W = gc.width = window.innerWidth; H = gc.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    const orbs = [
+      { x: 0.1,  y: 0.2,  r: 0.28, color: [182, 0, 168],   a: 0.10, dx: 0.00018, dy: 0.00010 },
+      { x: 0.85, y: 0.4,  r: 0.22, color: [118, 33, 176],  a: 0.08, dx:-0.00014, dy: 0.00013 },
+      { x: 0.5,  y: 0.75, r: 0.25, color: [190, 76, 0],    a: 0.07, dx: 0.00010, dy:-0.00012 },
+      { x: 0.2,  y: 0.85, r: 0.20, color: [182, 0, 168],   a: 0.07, dx:-0.00009, dy:-0.00008 },
+      { x: 0.75, y: 0.15, r: 0.18, color: [118, 33, 176],  a: 0.08, dx: 0.00012, dy: 0.00015 },
+      { x: 0.45, y: 0.45, r: 0.30, color: [100, 0, 160],   a: 0.06, dx:-0.00007, dy: 0.00009 },
+    ];
+    const pts = Array.from({ length: 70 }, () => ({
+      x: Math.random(), y: Math.random(),
+      r: Math.random() * 1.3 + 0.3,
+      speed: Math.random() * 0.00008 + 0.00003,
+      drift: (Math.random() - 0.5) * 0.00003,
+      opacity: Math.random() * 0.22 + 0.05,
+    }));
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      orbs.forEach(o => {
+        o.x += o.dx; o.y += o.dy;
+        if (o.x < -0.1 || o.x > 1.1) o.dx *= -1;
+        if (o.y < -0.1 || o.y > 1.1) o.dy *= -1;
+        const grd = ctx.createRadialGradient(o.x*W, o.y*H, 0, o.x*W, o.y*H, o.r * Math.min(W,H));
+        grd.addColorStop(0, `rgba(${o.color[0]},${o.color[1]},${o.color[2]},${o.a})`);
+        grd.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.beginPath();
+        ctx.arc(o.x*W, o.y*H, o.r * Math.min(W,H), 0, Math.PI*2);
+        ctx.fillStyle = grd; ctx.fill();
+      });
+      pts.forEach(p => {
+        p.y -= p.speed; p.x += p.drift;
+        if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+        if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+        ctx.beginPath();
+        ctx.arc(p.x*W, p.y*H, p.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(215,226,234,${p.opacity})`; ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+})();
+</script>
+</body>
+</html>
