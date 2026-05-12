@@ -15,7 +15,6 @@
     .main-wrapper { background: #0C0C0C; }
     @media (max-width: 639px) { .main-wrapper { background: transparent; } }
 
-    /* ── CURSOR SPOTLIGHT — desktop only ── */
     #cursor-spotlight {
       position: fixed; width: 600px; height: 600px; border-radius: 50%;
       pointer-events: none; z-index: 0;
@@ -43,7 +42,6 @@
       .glitch-heading { animation: glitchFlicker 7s infinite; }
     }
 
-    /* ── NAVBAR ── */
     nav {
       display: flex; justify-content: space-between; align-items: center;
       padding: 0.4rem 1.25rem; position: relative; z-index: 20;
@@ -84,7 +82,6 @@
     @media (min-width: 768px) { .nav-cta { padding: 0.7rem 2.2rem !important; font-size: 1rem !important; outline-width: 2px; } }
     @media (min-width: 1024px) { .nav-cta { padding: 0.8rem 2.6rem !important; font-size: 1.05rem !important; } }
 
-    /* ── HERO ── */
     #hero { min-height: 100svh; display: flex; flex-direction: column; position: relative; }
     @media (max-width: 767px) { #hero { min-height: 0; height: auto; } }
 
@@ -112,7 +109,6 @@
 
     #hero-particles-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 
-    /* ── HERO BODY ── */
     .hero-body {
       flex: 1; display: flex; flex-direction: column; position: relative; z-index: 2;
       padding: 0 1.25rem 0.75rem; justify-content: flex-start; padding-top: 0; min-height: 0;
@@ -125,19 +121,38 @@
       display: flex; flex-direction: column; gap: 0.65rem; z-index: 3;
       padding-right: 0.75rem; overflow: visible;
     }
+    @media (max-width: 639px) { .hero-left { align-items: center; padding-right: 0; gap: 1.1rem; } }
     @media (min-width: 768px) { .hero-left { flex: 1; max-width: 55%; gap: 2rem; padding-right: 0; } }
     @media (min-width: 1024px) { .hero-left { max-width: 52%; } }
 
     .hero-tagline {
       font-weight: 900; text-transform: uppercase; line-height: 1.0;
       letter-spacing: -0.02em; color: #D7E2EA;
-      font-size: clamp(3rem, 13vw, 5rem);
+      font-size: clamp(3.5rem, 14.5vw, 5.6rem);
       overflow: visible; word-break: break-word; overflow-wrap: normal; padding-right: 0.4em;
     }
-    @media (min-width: 480px) { .hero-tagline { font-size: clamp(3.2rem, 11vw, 5rem); } }
-    @media (min-width: 768px) { .hero-tagline { font-size: clamp(3.8rem, 5.8vw, 7rem); line-height: 1.05; padding-right: 0.3em; } }
-    @media (min-width: 1024px) { .hero-tagline { font-size: clamp(4.2rem, 6.4vw, 8rem); } }
-    @media (min-width: 1280px) { .hero-tagline { font-size: clamp(5rem, 7vw, 9rem); } }
+    @media (min-width: 480px) { .hero-tagline { font-size: clamp(3.8rem, 12.5vw, 5.6rem); } }
+    @media (min-width: 768px) { .hero-tagline { font-size: clamp(4.4rem, 6.6vw, 8rem); line-height: 1.05; padding-right: 0.3em; } }
+    @media (min-width: 1024px) { .hero-tagline { font-size: clamp(5rem, 7.2vw, 9.2rem); } }
+    @media (min-width: 1280px) { .hero-tagline { font-size: clamp(5.8rem, 8vw, 10.5rem); } }
+
+    @media (max-width: 639px) {
+      .hero-tagline {
+        text-align: center;
+        padding-right: 0;
+        display: flex; flex-direction: column; align-items: center;
+        gap: 0.05em;
+      }
+      .tagline-small {
+        font-size: clamp(1.9rem, 8.5vw, 2.7rem);
+        line-height: 1.1;
+        display: block;
+      }
+      .tagline-accent {
+        font-size: clamp(4rem, 17.5vw, 6.2rem);
+        display: block;
+      }
+    }
 
     @media (min-width: 640px) {
       .tagline-word { display: inline-block; opacity: 0; transform: translateY(40px); animation: wordReveal 0.7s cubic-bezier(0.22,1,0.36,1) forwards; }
@@ -153,7 +168,6 @@
     }
     @keyframes accentShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-    /* KPI ROW */
     .hero-kpis { display: flex; flex-direction: row; gap: 0.5rem; flex-wrap: nowrap; justify-content: center; }
     @media (min-width: 640px) { .hero-kpis { gap: 0.75rem; } }
     @media (min-width: 768px) { .hero-kpis { gap: 1rem; } }
@@ -213,7 +227,6 @@
       box-shadow: 0 0 6px rgba(182,0,168,0.42);
     }
 
-    /* ── PROCESS INLINE EXCLAMATION ── */
     .process-h2-inline-wrap {
       display: inline-flex; align-items: flex-end; position: relative;
       -webkit-text-fill-color: initial; color: #D7E2EA;
@@ -256,7 +269,6 @@
     .hero-portrait-wrap img.is-magnetic { animation: none; }
     @keyframes logoFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-9px); } }
 
-    /* ── CONTACT BUTTON ── */
     .contact-btn {
       display: inline-block; padding: 0.75rem 2rem; border-radius: 9999px;
       background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
@@ -278,14 +290,33 @@
     @media (min-width: 640px) { .contact-btn { padding: 0.875rem 2.5rem; font-size: 0.875rem; } }
     @media (min-width: 768px) { .contact-btn { padding: 1rem 3rem; font-size: 1rem; } }
 
-    /* ══════════════════════════════════════════════
-       ── PORTRAIT MARQUEE (9:16) — TWO ROWS, TOP ──
-       Two rows scrolling opposite directions
-    ══════════════════════════════════════════════ */
     #portrait-marquee-top {
-      background: #0C0C0C; padding: 3rem 0 2.5rem; overflow: hidden;
+      background: #0C0C0C; padding: 0 0 2.5rem; overflow: hidden;
     }
-    @media (min-width: 640px) { #portrait-marquee-top { padding: 4rem 0; } }
+    @media (min-width: 640px) { #portrait-marquee-top { padding: 0 0 4rem; } }
+
+    .what-we-did-wrap {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.4rem; padding: 3rem 0.5rem 2rem; overflow: visible; width: 100%;
+    }
+    @media (min-width: 640px) { .what-we-did-wrap { padding: 4rem 0.5rem 2.5rem; gap: 0.5rem; } }
+
+    .what-we-did-h2 {
+      font-size: clamp(2.5rem, 12.5vw, 160px); font-weight: 900;
+      text-transform: uppercase; line-height: 1; letter-spacing: -0.03em;
+      text-align: center; overflow: visible; padding-right: 0.04em;
+      color: #D7E2EA; -webkit-text-fill-color: #D7E2EA;
+    }
+    @media (min-width: 640px) { .what-we-did-h2 { font-size: clamp(3rem, 12vw, 160px); } }
+
+    .what-we-did-exclamation {
+      height: clamp(2.5rem, 10vw, 14rem); width: auto; display: block;
+      flex-shrink: 0; margin-left: -0.6rem;
+      animation: exclamationBounce 2.5s ease-in-out infinite;
+    }
+    @media (min-width: 640px) {
+      .what-we-did-exclamation { height: clamp(4rem, 12vw, 14rem); margin-left: -1.2rem; }
+    }
 
     .portrait-row-wrap { overflow: hidden; }
 
@@ -305,27 +336,134 @@
     @media (min-width: 1024px) { .portrait-card { width: 260px; height: 462px; } }
 
     /* ══════════════════════════════════════════════
-       ── MARQUEE 16:9 — BOTTOM (after projects) ──
+       16:9 BOTTOM MARQUEE
     ══════════════════════════════════════════════ */
     #marquee-bottom {
       background: #0C0C0C; padding: 3rem 0 4rem; overflow: hidden;
     }
     @media (min-width: 640px) { #marquee-bottom { padding: 4rem 0; } }
 
-    .marquee-row { overflow: hidden; }
-    .marquee-track {
-      display: flex; gap: 0.75rem; width: max-content;
-      will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden;
-    }
-    .marquee-img {
-      width: 280px; height: 180px; border-radius: 1rem; object-fit: cover; flex-shrink: 0;
+    /* FIX: explicit height on the row so it never collapses on mobile */
+    .marquee-row {
+      overflow: hidden;
+      height: 157px;
     }
     @media (min-width: 640px) {
-      .marquee-img { width: 420px; height: 270px; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s; cursor: pointer; }
-      .marquee-img:hover { transform: scale(1.04) translateY(-6px); box-shadow: 0 20px 60px rgba(182,0,168,0.245), 0 8px 24px rgba(0,0,0,0.35); }
+      .marquee-row {
+        height: 236px;
+      }
     }
 
-    /* ── PROJECTS ── */
+    .marquee-track {
+      display: flex;
+      gap: 0.75rem;
+      width: max-content;
+      height: 100%;
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* FIX: explicit dimensions — width fixed, height inherits from row */
+    .marquee-video-wrap {
+      position: relative;
+      flex-shrink: 0;
+      border-radius: 1rem;
+      overflow: hidden;
+      width: 280px;
+      height: 100%;      /* ← inherit from .marquee-row instead of fixed px */
+      background: #1a1a1a;
+    }
+    @media (min-width: 640px) {
+      .marquee-video-wrap {
+        width: 420px;
+        border-radius: 1.25rem;
+      }
+    }
+
+    /* FIX: video fills wrapper explicitly */
+    .marquee-video-wrap video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      background: #111;
+    }
+
+    /* Clickable overlay on top of everything */
+    .marquee-video-link {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: block;
+      text-decoration: none;
+      background: transparent;
+      cursor: pointer;
+      -webkit-tap-highlight-color: rgba(182,0,168,0.15);
+    }
+
+    @media (min-width: 640px) {
+      .marquee-video-wrap {
+        transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s;
+        cursor: pointer;
+      }
+      .marquee-video-wrap:hover {
+        transform: scale(1.04) translateY(-6px);
+        box-shadow: 0 20px 60px rgba(182,0,168,0.245), 0 8px 24px rgba(0,0,0,0.35);
+      }
+      .marquee-video-wrap:hover .marquee-video-play {
+        opacity: 1; transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    /* Play button — always visible on mobile, hover-only on desktop */
+    .marquee-video-play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(182,0,168,0.88);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 1;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none; z-index: 4;
+      box-shadow: 0 0 0 6px rgba(182,0,168,0.22), 0 4px 20px rgba(0,0,0,0.5);
+    }
+    @media (min-width: 640px) {
+      .marquee-video-play {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.85);
+      }
+    }
+    .marquee-video-play svg {
+      width: 22px; height: 22px; fill: white; margin-left: 3px;
+    }
+
+    .marquee-video-poster {
+      position: absolute; inset: 0; z-index: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 6px;
+      background: linear-gradient(135deg, #18011F 0%, #0C0C0C 60%, #1a0a1a 100%);
+      border-radius: inherit;
+      opacity: 1;
+      transition: opacity 0.4s;
+    }
+    .marquee-video-poster.hidden { opacity: 0; pointer-events: none; }
+    .marquee-video-poster-label {
+      font-family: 'Kanit', sans-serif;
+      font-size: 11px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: rgba(215,226,234,0.35);
+    }
+
+    .marquee-video-wrap::after {
+      content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: linear-gradient(to bottom, transparent 60%, rgba(12,12,12,0.45) 100%);
+      border-radius: inherit;
+    }
+
     #projects {
       background: #0C0C0C; position: relative; z-index: 10;
       padding: 5rem 1.25rem 0; padding-bottom: 0;
@@ -457,7 +595,6 @@
       pointer-events: none; border-radius: inherit; z-index: 2; mix-blend-mode: screen;
     }
 
-    /* ── PROCESS SECTION ── */
     #process {
       background: #0C0C0C; position: relative; overflow: hidden;
       padding: 6rem 1.25rem 5rem;
@@ -586,10 +723,9 @@
       position: absolute; bottom: 0; left: 0; height: 2px; width: 0%; border-radius: 1px;
       background: linear-gradient(90deg, #B600A8, #7621B0); transition: none;
     }
-    .process-step.step-active .process-cycle-bar { animation: cycleBarGrow 3.2s linear forwards; }
+    .process-step.step-active .process-cycle-bar { animation: cycleBarGrow var(--cycle-dur, 3.2s) linear forwards; }
     @keyframes cycleBarGrow { from { width: 0%; } to { width: 100%; } }
 
-    /* ── CONTACT ── */
     #contact { background: #0C0C0C; position: relative; overflow: hidden; padding: 0; border-top: 1px solid rgba(215,226,234,0.056); }
     #contact-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; display: none; }
     @media (min-width: 640px) { #contact-canvas { display: block; } }
@@ -623,6 +759,22 @@
     @media (min-width: 640px) { .contact-item { padding: 1.75rem 0.5rem; } }
     .contact-item:last-child { border-bottom: 1px solid rgba(215,226,234,0.07); }
 
+    .contact-item-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 12px; flex-shrink: 0;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    @media (min-width: 640px) {
+      .contact-item-icon { width: 44px; height: 44px; border-radius: 14px; }
+      .contact-item:hover .contact-item-icon {
+        transform: scale(1.1);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+      }
+    }
+    .contact-item-icon svg { width: 38px; height: 38px; display: block; }
+    @media (min-width: 640px) { .contact-item-icon svg { width: 44px; height: 44px; } }
+
     .contact-item-label { color: #D7E2EA; font-size: clamp(0.7rem, 1.3vw, 0.85rem); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 300; opacity: 0.4; min-width: 90px; flex-shrink: 0; }
     @media (min-width: 640px) { .contact-item-label { min-width: 120px; } }
     .contact-item-value {
@@ -636,11 +788,9 @@
     .contact-cta { display: flex; justify-content: center; }
     .contact-footer-line { color: rgba(215,226,234,0.14); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; padding-top: 1rem; border-top: 1px solid rgba(215,226,234,0.042); width: 100%; }
 
-    /* ── FADE-IN ── */
     .fade-init { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.25,0.1,0.25,1), transform 0.7s cubic-bezier(0.25,0.1,0.25,1); }
     .fade-init.visible { opacity: 1; transform: translateY(0) translateX(0); }
 
-    /* ── SCROLL PROGRESS BAR ── */
     #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; z-index: 9999; background: linear-gradient(90deg, #B600A8, #7621B0, #BE4C00); width: 0%; box-shadow: 0 0 12px rgba(182,0,168,0.56); }
 
     ::-webkit-scrollbar { width: 6px; }
@@ -648,7 +798,6 @@
     ::-webkit-scrollbar-thumb { background: rgba(182,0,168,0.28); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(182,0,168,0.49); }
 
-    /* Mobile background */
     @media (max-width: 639px) {
       body::before {
         content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -751,11 +900,13 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       TOP PORTRAIT MARQUEE (9:16) — 7 unique videos
-       Two rows: row A scrolls left, row B scrolls right
-  ═══════════════════════════════════════════════════ -->
+  <!-- TOP PORTRAIT MARQUEE (9:16) -->
   <section id="portrait-marquee-top">
+    <div class="what-we-did-wrap fade-init" data-delay="0" data-y="40" data-x="0">
+      <h2 class="what-we-did-h2 glitch-heading">What We Did</h2>
+      <img src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/white_exclamation.png?raw=true" alt="" class="what-we-did-exclamation" />
+    </div>
+
     <div class="portrait-row-wrap" style="overflow:hidden; margin-bottom:0.75rem;">
       <div id="portrait-row-top-a" class="portrait-row"></div>
     </div>
@@ -772,7 +923,6 @@
     </div>
 
     <div class="cards-stack" id="cards-stack">
-      <!-- CARD 01 — Video Production -->
       <div class="card-sticky-wrap">
         <div class="project-card" id="card-0">
           <div class="card-top-row">
@@ -795,7 +945,6 @@
         </div>
       </div>
 
-      <!-- CARD 02 — Performance Marketing -->
       <div class="card-sticky-wrap">
         <div class="project-card" id="card-1">
           <div class="card-top-row">
@@ -817,7 +966,6 @@
         </div>
       </div>
 
-      <!-- CARD 03 — Social Media Management -->
       <div class="card-sticky-wrap">
         <div class="project-card" id="card-2">
           <div class="card-top-row">
@@ -840,7 +988,6 @@
         </div>
       </div>
 
-      <!-- CARD 04 — Web Development -->
       <div class="card-sticky-wrap">
         <div class="project-card" id="card-3">
           <div class="card-top-row">
@@ -866,9 +1013,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       BOTTOM 16:9 MARQUEE — 5 unique videos, single row
-  ═══════════════════════════════════════════════════ -->
+  <!-- BOTTOM 16:9 VIDEO MARQUEE -->
   <section id="marquee-bottom">
     <div id="marquee-row-bottom" class="marquee-row">
       <div id="marquee-track-bottom" class="marquee-track"></div>
@@ -879,7 +1024,7 @@
   <section id="process">
     <div class="process-heading-wrap fade-init" data-delay="0" data-y="40" data-x="0">
       <h2 class="process-h2 glitch-heading" style="color:#D7E2EA;-webkit-text-fill-color:#D7E2EA;">
-        <span style="-webkit-text-fill-color:#D7E2EA;color:#D7E2EA;">How We Craft Your Brand's </span>
+        <span style="-webkit-text-fill-color:#D7E2EA;color:#D7E2EA;">How We Craft Your Brand </span>
         <span class="process-h2-inline-wrap">Content<img src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/white_exclamation.png?raw=true" alt="" class="process-exclamation-inline" /></span>
       </h2>
     </div>
@@ -895,7 +1040,7 @@
           <div class="process-node"></div>
           <span class="process-step-num">01</span>
           <span class="process-step-name">Business Analysis</span>
-          <span class="process-step-desc">We deep-dive into your brand, audience & goals to build the foundation.</span>
+          <span class="process-step-desc">We deep-dive into your brand, audience &amp; goals to build the foundation.</span>
           <span class="process-tag">Discovery</span>
           <div class="process-cycle-bar"></div>
         </div>
@@ -969,23 +1114,60 @@
       </div>
       <div class="contact-grid fade-init" data-delay="0.15" data-y="30" data-x="0">
         <a href="mailto:inkwellmedia.agency@gmail.com" class="contact-item">
+          <span class="contact-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+              <path fill="#4caf50" d="M45,16.2l-5,2.75l-5,4.75L35,40h7c1.657,0,3-1.343,3-3V16.2z"/>
+              <path fill="#1e88e5" d="M3,16.2l3.614,1.71L13,23.7V40H6c-1.657,0-3-1.343-3-3V16.2z"/>
+              <polygon fill="#e53935" points="35,11.2 24,19.45 13,11.2 12,17 13,23.7 24,31.95 35,23.7 36,17"/>
+              <path fill="#c62828" d="M3,12.298V16.2l10,7.5V11.2L9.876,8.859C9.132,8.301,8.228,8,7.298,8h0C4.924,8,3,9.924,3,12.298z"/>
+              <path fill="#fbc02d" d="M45,12.298V16.2l-10,7.5V11.2l3.124-2.341C38.868,8.301,39.772,8,40.702,8h0C43.076,8,45,9.924,45,12.298z"/>
+            </svg>
+          </span>
           <span class="contact-item-label">Email</span>
           <span class="contact-item-value">inkwellmedia.agency@gmail.com</span>
           <span class="contact-item-arrow">↗</span>
         </a>
         <a href="https://www.instagram.com/inkwellmediaa/" target="_blank" class="contact-item">
+          <span class="contact-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+              <defs>
+                <radialGradient id="ig-rg1" cx="19.38" cy="42.035" r="44.899" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#fd5"/>
+                  <stop offset=".328" stop-color="#ff543f"/>
+                  <stop offset=".348" stop-color="#fc5245"/>
+                  <stop offset=".504" stop-color="#e64771"/>
+                  <stop offset=".643" stop-color="#d53e91"/>
+                  <stop offset=".761" stop-color="#cc39a4"/>
+                  <stop offset=".841" stop-color="#c837ab"/>
+                </radialGradient>
+                <radialGradient id="ig-rg2" cx="11.786" cy="5.54" r="29.813" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#4168c9"/>
+                  <stop offset=".999" stop-color="#4168c9" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <path fill="url(#ig-rg1)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20C42.014,38.383,38.417,41.986,34.017,41.99z"/>
+              <path fill="url(#ig-rg2)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20C42.014,38.383,38.417,41.986,34.017,41.99z"/>
+              <path fill="#fff" d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z"/>
+              <circle cx="31.5" cy="16.5" r="1.5" fill="#fff"/>
+              <path fill="#fff" d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z"/>
+            </svg>
+          </span>
           <span class="contact-item-label">Instagram</span>
           <span class="contact-item-value">@inkwellmediaa</span>
           <span class="contact-item-arrow">↗</span>
         </a>
         <a href="https://wa.me/919082531628" target="_blank" class="contact-item">
+          <span class="contact-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+              <path fill="#fff" d="M4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98c-0.001,0,0,0,0,0h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303z"/>
+              <path fill="#fff" d="M4.868,43.803c-0.132,0-0.26-0.052-0.355-0.148c-0.125-0.127-0.174-0.312-0.127-0.483l2.639-9.636c-1.636-2.906-2.499-6.206-2.497-9.556C4.532,13.238,13.273,4.5,24.014,4.5c5.21,0.002,10.105,2.031,13.784,5.713c3.679,3.683,5.704,8.577,5.702,13.781c-0.004,10.741-8.746,19.48-19.486,19.48c-3.189-0.001-6.344-0.788-9.144-2.277l-9.875,2.589C4.953,43.798,4.911,43.803,4.868,43.803z"/>
+              <path fill="#cfd8dc" d="M24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5 M24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974"/>
+              <path fill="#40c351" d="M35.176,12.832c-2.98-2.982-6.941-4.625-11.157-4.626c-8.704,0-15.783,7.076-15.787,15.774c-0.001,2.981,0.833,5.883,2.413,8.396l0.376,0.597l-1.595,5.821l5.973-1.566l0.577,0.342c2.422,1.438,5.2,2.198,8.032,2.199h0.006c8.698,0,15.777-7.077,15.78-15.776C39.795,19.778,38.156,15.814,35.176,12.832z"/>
+              <path fill="#fff" fill-rule="evenodd" d="M19.268,16.045c-0.355-0.79-0.729-0.806-1.068-0.82c-0.277-0.012-0.593-0.011-0.909-0.011c-0.316,0-0.83,0.119-1.265,0.594c-0.435,0.475-1.661,1.622-1.661,3.956c0,2.334,1.7,4.59,1.937,4.906c0.237,0.316,3.282,5.259,8.104,7.161c4.007,1.58,4.823,1.266,5.693,1.187c0.87-0.079,2.807-1.147,3.202-2.255c0.395-1.108,0.395-2.057,0.277-2.255c-0.119-0.198-0.435-0.316-0.909-0.554s-2.807-1.385-3.242-1.543c-0.435-0.158-0.751-0.237-1.068,0.238c-0.316,0.474-1.225,1.543-1.502,1.859c-0.277,0.317-0.554,0.357-1.028,0.119c-0.474-0.238-2.002-0.738-3.815-2.354c-1.41-1.257-2.362-2.81-2.639-3.285c-0.277-0.474-0.03-0.731,0.208-0.968c0.213-0.213,0.474-0.554,0.712-0.831c0.237-0.277,0.316-0.475,0.474-0.791c0.158-0.317,0.079-0.594-0.04-0.831C20.612,19.329,19.69,16.983,19.268,16.045z" clip-rule="evenodd"/>
+            </svg>
+          </span>
           <span class="contact-item-label">WhatsApp</span>
           <span class="contact-item-value">+91 90825 31628</span>
-          <span class="contact-item-arrow">↗</span>
-        </a>
-        <a href="https://www.youtube.com/@InkwellMediaProduction" target="_blank" class="contact-item">
-          <span class="contact-item-label">YouTube</span>
-          <span class="contact-item-value">@InkwellMediaProduction</span>
           <span class="contact-item-arrow">↗</span>
         </a>
       </div>
@@ -1030,33 +1212,7 @@
     })();
   }
 
-  // ══════════════════════════════════════════════════════════
-  // SEAMLESS MARQUEE SETUP
-  // Strategy: build exactly 2 copies of each unique set in DOM,
-  // then use CSS animation translateX(0) → translateX(-50%).
-  // When it reaches -50% it loops back to 0 — perfectly seamless,
-  // no JS offset math, no jump, browser-composited smooth.
-  // ══════════════════════════════════════════════════════════
-
-  const topVideos = [
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-63.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-123.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-437.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-666.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-697.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-714.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/videos/Video-820.mp4',
-  ];
-
-  const bottomImages = [
-    'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
-    'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
-    'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
-    'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
-    'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
-  ];
-
-  // Inject keyframes once into <head>
+  // ── MARQUEE ANIMATION STYLES ──
   const styleEl = document.createElement('style');
   styleEl.textContent = `
     @keyframes scrollLeft  { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -1066,68 +1222,160 @@
   `;
   document.head.appendChild(styleEl);
 
-  // Build a video marquee row: 2 copies of srcs (seamless loop = exactly 2×)
+  // ── VIDEO SOURCES ──
+  const topVideosA = [
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid1.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid2.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid3.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid4.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid5.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid6.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid7.mp4',
+  ];
+
+  const topVideosB = [
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/1.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/2.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/3.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/4.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/5.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/6.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/7.mp4',
+    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/8.mp4',
+  ];
+
+  // Using GitHub's media CDN which serves correct video/mp4 content-type
+  const bottomVideos = [
+    'https://media.githubusercontent.com/media/qwuitty-prog/inkwell_media/main/assets/16:9%20Videos/1.mp4',
+    'https://media.githubusercontent.com/media/qwuitty-prog/inkwell_media/main/assets/16:9%20Videos/2.mp4',
+    'https://media.githubusercontent.com/media/qwuitty-prog/inkwell_media/main/assets/16:9%20Videos/3.mp4',
+    'https://media.githubusercontent.com/media/qwuitty-prog/inkwell_media/main/assets/16:9%20Videos/4.mp4',
+    'https://media.githubusercontent.com/media/qwuitty-prog/inkwell_media/main/assets/16:9%20Videos/5.mp4',
+  ];
+
+  // ── BUILD 9:16 PORTRAIT MARQUEE ──
   function buildVideoMarquee(rowEl, srcs, cssClass, durSec) {
     rowEl.style.setProperty('--dur', durSec + 's');
     rowEl.classList.add(cssClass);
-    // 2 copies only
     for (let c = 0; c < 2; c++) {
       srcs.forEach(src => {
         const video = document.createElement('video');
-        video.src = src;
+        video.setAttribute('src', src);
+        video.setAttribute('autoplay', '');
+        video.setAttribute('muted', '');
+        video.setAttribute('loop', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        video.setAttribute('preload', 'metadata');
+        video.muted = true;
+        video.autoplay = true;
+        video.loop = true;
+        video.playsInline = true;
         video.className = 'portrait-card';
-        video.autoplay = true; video.muted = true; video.loop = true; video.playsInline = true;
-        video.preload = 'none'; // will be triggered by IntersectionObserver
         rowEl.appendChild(video);
       });
     }
   }
 
-  // Build a 16:9 image marquee row: 2 copies
-  function buildImageMarquee(rowEl, srcs, cssClass, durSec) {
+  // ── BUILD 16:9 BOTTOM MARQUEE ──
+  function buildBottomVideoMarquee(rowEl, items, cssClass, durSec) {
     rowEl.style.setProperty('--dur', durSec + 's');
     rowEl.classList.add(cssClass);
+    // FIX: ensure track fills the row height and is a proper flex container
+    rowEl.style.height = '100%';
+    rowEl.style.display = 'flex';
+    rowEl.style.alignItems = 'stretch';
+
     for (let c = 0; c < 2; c++) {
-      srcs.forEach(src => {
-        const img = document.createElement('img');
-        img.src = src; img.className = 'marquee-img'; img.loading = 'lazy'; img.alt = ''; img.decoding = 'async';
-        rowEl.appendChild(img);
+      items.forEach((item) => {
+        // <div> wrapper — NOT <a> (iOS Safari blocks autoplay inside <a>)
+        const wrap = document.createElement('div');
+        wrap.className = 'marquee-video-wrap';
+        // FIX: height 100% so it fills the fixed-height row
+        wrap.style.height = '100%';
+
+        // Video with every mobile-autoplay attribute
+        const video = document.createElement('video');
+        video.setAttribute('src', item.src);
+        video.setAttribute('autoplay', '');
+        video.setAttribute('muted', '');
+        video.setAttribute('loop', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        video.setAttribute('x5-playsinline', '');
+        video.setAttribute('x5-video-player-type', 'h5');
+        video.setAttribute('preload', 'metadata');
+        video.muted = true;
+        video.autoplay = true;
+        video.loop = true;
+        video.playsInline = true;
+
+        // Transparent overlay <a> for the YouTube link (on top, z-index:5)
+        const link = document.createElement('a');
+        link.className = 'marquee-video-link';
+        link.href = item.href;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.setAttribute('aria-label', 'Watch on YouTube');
+
+        // Play icon
+        const playIcon = document.createElement('div');
+        playIcon.className = 'marquee-video-play';
+        playIcon.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>`;
+
+        wrap.appendChild(video);
+        wrap.appendChild(playIcon);
+        wrap.appendChild(link);
+        rowEl.appendChild(wrap);
       });
     }
   }
 
-  // Speed: duration = (unique items × item width) / px-per-sec
-  // Portrait card widths: mobile 192px, tablet 232px, desktop 272px
+  // ── SIZING ──
   const cardW = IS_MOBILE ? 192 : (window.innerWidth >= 1024 ? 272 : 232);
-  const imgW  = IS_MOBILE ? 292 : 432;
-  const PPS   = IS_MOBILE ? 50 : 65; // pixels per second
+  const vidW  = IS_MOBILE ? 292 : 432;
+  const PPS   = IS_MOBILE ? 50 : 65;
 
-  const topDur = Math.round(topVideos.length    * cardW / PPS);
-  const botDur = Math.round(bottomImages.length * imgW  / PPS);
+  const topDurA = Math.round(topVideosA.length   * cardW / PPS);
+  const topDurB = Math.round(topVideosB.length   * cardW / PPS);
+  const botDur  = Math.round(bottomVideos.length * vidW  / PPS);
 
-  // Build rows
   const topRowA = document.getElementById('portrait-row-top-a');
   const topRowB = document.getElementById('portrait-row-top-b');
-  buildVideoMarquee(topRowA, topVideos, 'marquee-loop-left',  topDur);
-  buildVideoMarquee(topRowB, topVideos, 'marquee-loop-right', topDur);
+  buildVideoMarquee(topRowA, topVideosA, 'marquee-loop-left',  topDurA);
+  buildVideoMarquee(topRowB, topVideosB, 'marquee-loop-right', topDurB);
 
   const bottomTrack = document.getElementById('marquee-track-bottom');
-  buildImageMarquee(bottomTrack, bottomImages, 'marquee-loop-left', botDur);
+  buildBottomVideoMarquee(bottomTrack, bottomVideos, 'marquee-loop-left', botDur);
 
-  // Lazy-play: only load+play videos when section scrolls into view
+  // ── ROBUST PLAY — retries once after 800ms ──
+  function tryPlay(video) {
+    video.muted = true;
+    const p = video.play();
+    if (p && p.catch) {
+      p.catch(() => {
+        setTimeout(() => {
+          video.muted = true;
+          video.play().catch(() => {});
+        }, 800);
+      });
+    }
+  }
+
   function lazyPlayRow(rowEl) {
     rowEl.querySelectorAll('video').forEach((v, i) => {
-      // small stagger so browser doesn't open all connections at once
+      const delay = IS_MOBILE ? i * 50 : i * 80;
       setTimeout(() => {
-        if (v.preload === 'none') {
-          v.preload = 'metadata';
+        if (v.getAttribute('preload') === 'none') {
+          v.setAttribute('preload', 'metadata');
           v.load();
         }
-        v.play().catch(() => {});
-      }, i * 80);
+        tryPlay(v);
+      }, delay);
     });
   }
 
+  // ── LAZY PLAY — top portrait marquee ──
   const ioTop = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
       lazyPlayRow(topRowA);
@@ -1137,6 +1385,25 @@
   }, { threshold: 0.05 });
   const topSec = document.getElementById('portrait-marquee-top');
   if (topSec) ioTop.observe(topSec);
+
+  // ── LAZY PLAY — bottom 16:9 marquee ──
+  const ioBottom = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      lazyPlayRow(bottomTrack);
+      ioBottom.disconnect();
+    }
+  }, { threshold: 0, rootMargin: '200px' });
+  const bottomSec = document.getElementById('marquee-bottom');
+  if (bottomSec) ioBottom.observe(bottomSec);
+
+  // ── iOS Safari: kick all paused videos on first user gesture ──
+  function kickPausedVideos() {
+    document.querySelectorAll('video').forEach(v => {
+      if (v.paused) { v.muted = true; tryPlay(v); }
+    });
+  }
+  document.addEventListener('touchstart', kickPausedVideos, { once: true, passive: true });
+  document.addEventListener('scroll',     kickPausedVideos, { once: true, passive: true });
 
   // ── FADE-IN ──
   const fadeEls = document.querySelectorAll('.fade-init');
@@ -1169,6 +1436,12 @@
     if (!steps.length || !lineFill || !timeline) return;
 
     const TOTAL = steps.length;
+    const CYCLE_DUR = IS_MOBILE ? 1800 : 3200;
+
+    document.querySelectorAll('.process-cycle-bar').forEach(bar => {
+      bar.style.setProperty('--cycle-dur', (CYCLE_DUR / 1000) + 's');
+    });
+
     let activeIdx = -1, cycleTimer = null, hasStarted = false;
 
     function isDesktop() { return window.innerWidth >= 768; }
@@ -1202,13 +1475,22 @@
       steps.forEach((s, i) => { s.classList.remove('step-active'); if (i < idx) s.classList.add('step-visited'); });
       if (idx >= 0 && idx < TOTAL) steps[idx].classList.add('step-active');
       activeIdx = idx;
+      steps.forEach(s => {
+        const bar = s.querySelector('.process-cycle-bar');
+        if (bar) {
+          bar.style.setProperty('--cycle-dur', (CYCLE_DUR / 1000) + 's');
+          bar.style.animation = 'none';
+          bar.offsetHeight;
+          bar.style.animation = '';
+        }
+      });
       animateLineTo(idx < 0 ? 0 : idx / (TOTAL - 1), 500);
     }
 
     function startCycle() {
       if (cycleTimer) clearTimeout(cycleTimer);
       let idx = 0;
-      function advance() { activateStep(idx); idx = (idx + 1) % TOTAL; cycleTimer = setTimeout(advance, 3200); }
+      function advance() { activateStep(idx); idx = (idx + 1) % TOTAL; cycleTimer = setTimeout(advance, CYCLE_DUR); }
       advance();
     }
 
@@ -1236,7 +1518,7 @@
         if (!cycleTimer) {
           cycleTimer = setTimeout(() => {
             let idx = (i + 1) % TOTAL;
-            (function advance() { activateStep(idx); idx = (idx + 1) % TOTAL; cycleTimer = setTimeout(advance, 3200); })();
+            (function advance() { activateStep(idx); idx = (idx + 1) % TOTAL; cycleTimer = setTimeout(advance, CYCLE_DUR); })();
           }, 1200);
         }
       });
