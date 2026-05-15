@@ -335,53 +335,32 @@
     @media (min-width: 640px) { .portrait-card { width: 220px; height: 390px; } }
     @media (min-width: 1024px) { .portrait-card { width: 260px; height: 462px; } }
 
-    /* ══════════════════════════════════════════════
-       16:9 BOTTOM MARQUEE
-    ══════════════════════════════════════════════ */
     #marquee-bottom {
       background: #0C0C0C; padding: 3rem 0 4rem; overflow: hidden;
-    }
-    @media (min-width: 640px) { #marquee-bottom { padding: 4rem 0; } }
-
-    /* FIX: explicit height on the row so it never collapses on mobile */
-    .marquee-row {
-      overflow: hidden;
-      height: 157px;
+      display: none;
     }
     @media (min-width: 640px) {
-      .marquee-row {
-        height: 236px;
+      #marquee-bottom {
+        display: block;
+        padding: 4rem 0;
       }
     }
 
+    .marquee-row { overflow: hidden; }
     .marquee-track {
-      display: flex;
-      gap: 0.75rem;
-      width: max-content;
-      height: 100%;
-      will-change: transform;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
+      display: flex; gap: 0.75rem; width: max-content;
+      will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden;
     }
 
-    /* FIX: explicit dimensions — width fixed, height inherits from row */
     .marquee-video-wrap {
-      position: relative;
-      flex-shrink: 0;
-      border-radius: 1rem;
-      overflow: hidden;
-      width: 280px;
-      height: 100%;      /* ← inherit from .marquee-row instead of fixed px */
+      position: relative; flex-shrink: 0; border-radius: 1rem; overflow: hidden;
+      width: 280px; height: 157px;
       background: #1a1a1a;
     }
     @media (min-width: 640px) {
-      .marquee-video-wrap {
-        width: 420px;
-        border-radius: 1.25rem;
-      }
+      .marquee-video-wrap { width: 420px; height: 236px; border-radius: 1.25rem; }
     }
 
-    /* FIX: video fills wrapper explicitly */
     .marquee-video-wrap video {
       position: absolute;
       top: 0; left: 0;
@@ -393,7 +372,6 @@
       background: #111;
     }
 
-    /* Clickable overlay on top of everything */
     .marquee-video-link {
       position: absolute;
       inset: 0;
@@ -419,7 +397,6 @@
       }
     }
 
-    /* Play button — always visible on mobile, hover-only on desktop */
     .marquee-video-play {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%) scale(1);
@@ -662,6 +639,9 @@
       flex: 1; display: flex; flex-direction: column; position: relative; padding-bottom: 2.5rem;
       opacity: 0; transform: translateY(24px);
       transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     .process-step.step-visible { opacity: 1; transform: translateY(0); }
     @media (min-width: 768px) { .process-step { padding-bottom: 0; padding-right: 1rem; align-items: flex-start; opacity: 0; transform: translateY(28px); } }
@@ -743,6 +723,7 @@
       display: flex; align-items: center; gap: 1rem; padding: 1.4rem 0.5rem;
       border-top: 1px solid rgba(215,226,234,0.07); text-decoration: none; border-radius: 8px;
       position: relative; overflow: hidden;
+      min-width: 0;
     }
     @media (min-width: 640px) {
       .contact-item { transition: background 0.25s, padding-left 0.25s; }
@@ -775,13 +756,28 @@
     .contact-item-icon svg { width: 38px; height: 38px; display: block; }
     @media (min-width: 640px) { .contact-item-icon svg { width: 44px; height: 44px; } }
 
-    .contact-item-label { color: #D7E2EA; font-size: clamp(0.7rem, 1.3vw, 0.85rem); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 300; opacity: 0.4; min-width: 90px; flex-shrink: 0; }
-    @media (min-width: 640px) { .contact-item-label { min-width: 120px; } }
-    .contact-item-value {
-      color: #D7E2EA; font-size: clamp(0.9rem, 2vw, 1.35rem); font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.04em; flex: 1; opacity: 0.85;
+    .contact-item-label {
+      color: #D7E2EA; font-size: clamp(0.7rem, 1.3vw, 0.85rem); text-transform: uppercase;
+      letter-spacing: 0.15em; font-weight: 300; opacity: 0.4;
+      width: 64px; flex-shrink: 0;
     }
-    @media (min-width: 640px) { .contact-item-value { transition: opacity 0.2s, transform 0.3s cubic-bezier(0.22,1,0.36,1); } }
+    @media (min-width: 640px) { .contact-item-label { width: auto; min-width: 120px; } }
+
+    .contact-item-value {
+      color: #D7E2EA; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      flex: 1; min-width: 0;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      opacity: 0.85;
+      font-size: clamp(0.65rem, 2.5vw, 1.35rem);
+    }
+    @media (min-width: 640px) {
+      .contact-item-value {
+        white-space: nowrap;
+        font-size: clamp(0.9rem, 2vw, 1.35rem);
+        transition: opacity 0.2s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+      }
+    }
     .contact-item-arrow { color: #D7E2EA; font-size: clamp(1rem, 2vw, 1.4rem); opacity: 0.3; flex-shrink: 0; }
     @media (min-width: 640px) { .contact-item-arrow { transition: opacity 0.2s, transform 0.3s cubic-bezier(0.22,1,0.36,1); } }
 
@@ -857,7 +853,7 @@
 
     <nav class="fade-init" data-delay="0" data-x="0" data-y="-20" style="position:relative;z-index:20;">
       <a href="#">
-        <img src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/whitelogo.png?raw=true" alt="Inkwell Media" class="nav-logo-img" />
+        <img src="https://cdn.jsdelivr.net/gh/qwuitty-prog/inkwell_media@main/assets/whitelogo.png" alt="Inkwell Media" class="nav-logo-img" />
       </a>
       <div>
         <a href="#contact" class="nav-cta">Get In Touch</a>
@@ -894,7 +890,7 @@
 
       <div class="hero-right fade-init" data-delay="0.2" data-y="20" data-x="0">
         <div class="hero-portrait-wrap" id="portrait">
-          <img src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/whitelogo.png?raw=true" alt="Inkwell Media Logo" id="portrait-img" style="width:180%;margin-left:-40%;display:block;position:relative;z-index:1;" />
+          <img src="https://cdn.jsdelivr.net/gh/qwuitty-prog/inkwell_media@main/assets/whitelogo.png" alt="Inkwell Media Logo" id="portrait-img" style="width:180%;margin-left:-40%;display:block;position:relative;z-index:1;" />
         </div>
       </div>
     </div>
@@ -904,7 +900,7 @@
   <section id="portrait-marquee-top">
     <div class="what-we-did-wrap fade-init" data-delay="0" data-y="40" data-x="0">
       <h2 class="what-we-did-h2 glitch-heading">What We Did</h2>
-      <img src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/white_exclamation.png?raw=true" alt="" class="what-we-did-exclamation" />
+      <img src="https://cdn.jsdelivr.net/gh/qwuitty-prog/inkwell_media@main/assets/white_exclamation.png" alt="" class="what-we-did-exclamation" />
     </div>
 
     <div class="portrait-row-wrap" style="overflow:hidden; margin-bottom:0.75rem;">
@@ -919,7 +915,7 @@
   <section id="projects">
     <div class="projects-heading-wrap fade-init" data-delay="0" data-y="40" data-x="0">
       <h2 class="projects-h2 glitch-heading" style="color:#D7E2EA;-webkit-text-fill-color:#D7E2EA;">What We Do</h2>
-      <img src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/white_exclamation.png?raw=true" alt="" class="projects-exclamation" />
+      <img src="https://cdn.jsdelivr.net/gh/qwuitty-prog/inkwell_media@main/assets/white_exclamation.png" alt="" class="projects-exclamation" />
     </div>
 
     <div class="cards-stack" id="cards-stack">
@@ -1013,7 +1009,7 @@
     </div>
   </section>
 
-  <!-- BOTTOM 16:9 VIDEO MARQUEE -->
+  <!-- BOTTOM 16:9 VIDEO MARQUEE — desktop only -->
   <section id="marquee-bottom">
     <div id="marquee-row-bottom" class="marquee-row">
       <div id="marquee-track-bottom" class="marquee-track"></div>
@@ -1025,7 +1021,7 @@
     <div class="process-heading-wrap fade-init" data-delay="0" data-y="40" data-x="0">
       <h2 class="process-h2 glitch-heading" style="color:#D7E2EA;-webkit-text-fill-color:#D7E2EA;">
         <span style="-webkit-text-fill-color:#D7E2EA;color:#D7E2EA;">How We Craft Your Brand </span>
-        <span class="process-h2-inline-wrap">Content<img src="https://github.com/qwuitty-prog/inkwell_media/blob/main/assets/white_exclamation.png?raw=true" alt="" class="process-exclamation-inline" /></span>
+        <span class="process-h2-inline-wrap">Content<img src="https://cdn.jsdelivr.net/gh/qwuitty-prog/inkwell_media@main/assets/white_exclamation.png" alt="" class="process-exclamation-inline" /></span>
       </h2>
     </div>
 
@@ -1222,35 +1218,36 @@
   `;
   document.head.appendChild(styleEl);
 
-  // ── VIDEO SOURCES ──
+  // ── VIDEO SOURCES (jsDelivr CDN) ──
+  const CDN = 'https://cdn.jsdelivr.net/gh/qwuitty-prog/inkwell_media@main';
+
   const topVideosA = [
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid1.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid2.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid3.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid4.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid5.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid6.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/new_videos/vid7.mp4',
+    `${CDN}/assets/new_videos/up1.mp4`,
+    `${CDN}/assets/new_videos/up2.mp4`,
+    `${CDN}/assets/new_videos/up3.mp4`,
+    `${CDN}/assets/new_videos/up4.mp4`,
+    `${CDN}/assets/new_videos/up5.mp4`,
+    `${CDN}/assets/new_videos/up6.mp4`,
+    `${CDN}/assets/new_videos/up7.mp4`,
   ];
 
   const topVideosB = [
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/1.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/2.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/3.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/4.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/5.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/6.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/7.mp4',
-    'https://raw.githubusercontent.com/qwuitty-prog/inkwell_media/main/assets/916%20lower%20videos/8.mp4',
+    `${CDN}/assets/916%20lower%20videos/d1.mp4`,
+    `${CDN}/assets/916%20lower%20videos/d2.mp4`,
+    `${CDN}/assets/916%20lower%20videos/d3.mp4`,
+    `${CDN}/assets/916%20lower%20videos/d4.mp4`,
+    `${CDN}/assets/916%20lower%20videos/d5.mp4`,
+    `${CDN}/assets/916%20lower%20videos/d6.mp4`,
+    `${CDN}/assets/916%20lower%20videos/d7.mp4`,
+    `${CDN}/assets/916%20lower%20videos/d4.mp4`,
   ];
 
-  // Using GitHub's media CDN which serves correct video/mp4 content-type
   const bottomVideos = [
-    'https://media.githubusercontent.com/media/qwuitty-prog/inkwell_media/main/assets/16:9%20Videos/1.mp4',
-    'https://media.githubusercontent.com/media/qwuitty-prog/inkwell_media/main/assets/16:9%20Videos/2.mp4',
-    'https://media.githubusercontent.com/media/qwuitty-prog/inkwell_media/main/assets/16:9%20Videos/3.mp4',
-    'https://media.githubusercontent.com/media/qwuitty-prog/inkwell_media/main/assets/16:9%20Videos/4.mp4',
-    'https://media.githubusercontent.com/media/qwuitty-prog/inkwell_media/main/assets/16:9%20Videos/5.mp4',
+    { src: `${CDN}/assets/16%3A9%20Videos/1.mp4`, href: 'https://youtu.be/WIDUEKf4VJ8?si=rf2WhD_a3Yccis92' },
+    { src: `${CDN}/assets/16%3A9%20Videos/2.mp4`, href: 'https://youtu.be/mJOFf8BzYfU?si=48rFr5wMmiUGitwi' },
+    { src: `${CDN}/assets/16%3A9%20Videos/3.mp4`, href: 'https://youtu.be/7OGztPQMKB0?si=0hpwoKvYWRoew598' },
+    { src: `${CDN}/assets/16%3A9%20Videos/4.mp4`, href: 'https://youtu.be/Hj_MnHnfOB0?si=ahlKFbKyIEYvreNU' },
+    { src: `${CDN}/assets/16%3A9%20Videos/5.mp4`, href: 'https://youtu.be/RJfp7paUSKY?si=ZlD-Wg67W_QN95wc' },
   ];
 
   // ── BUILD 9:16 PORTRAIT MARQUEE ──
@@ -1277,24 +1274,14 @@
     }
   }
 
-  // ── BUILD 16:9 BOTTOM MARQUEE ──
+  // ── BUILD 16:9 BOTTOM MARQUEE (desktop only) ──
   function buildBottomVideoMarquee(rowEl, items, cssClass, durSec) {
     rowEl.style.setProperty('--dur', durSec + 's');
     rowEl.classList.add(cssClass);
-    // FIX: ensure track fills the row height and is a proper flex container
-    rowEl.style.height = '100%';
-    rowEl.style.display = 'flex';
-    rowEl.style.alignItems = 'stretch';
-
     for (let c = 0; c < 2; c++) {
       items.forEach((item) => {
-        // <div> wrapper — NOT <a> (iOS Safari blocks autoplay inside <a>)
         const wrap = document.createElement('div');
         wrap.className = 'marquee-video-wrap';
-        // FIX: height 100% so it fills the fixed-height row
-        wrap.style.height = '100%';
-
-        // Video with every mobile-autoplay attribute
         const video = document.createElement('video');
         video.setAttribute('src', item.src);
         video.setAttribute('autoplay', '');
@@ -1309,20 +1296,15 @@
         video.autoplay = true;
         video.loop = true;
         video.playsInline = true;
-
-        // Transparent overlay <a> for the YouTube link (on top, z-index:5)
         const link = document.createElement('a');
         link.className = 'marquee-video-link';
         link.href = item.href;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         link.setAttribute('aria-label', 'Watch on YouTube');
-
-        // Play icon
         const playIcon = document.createElement('div');
         playIcon.className = 'marquee-video-play';
         playIcon.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>`;
-
         wrap.appendChild(video);
         wrap.appendChild(playIcon);
         wrap.appendChild(link);
@@ -1345,10 +1327,12 @@
   buildVideoMarquee(topRowA, topVideosA, 'marquee-loop-left',  topDurA);
   buildVideoMarquee(topRowB, topVideosB, 'marquee-loop-right', topDurB);
 
-  const bottomTrack = document.getElementById('marquee-track-bottom');
-  buildBottomVideoMarquee(bottomTrack, bottomVideos, 'marquee-loop-left', botDur);
+  if (!IS_MOBILE) {
+    const bottomTrack = document.getElementById('marquee-track-bottom');
+    buildBottomVideoMarquee(bottomTrack, bottomVideos, 'marquee-loop-left', botDur);
+  }
 
-  // ── ROBUST PLAY — retries once after 800ms ──
+  // ── ROBUST PLAY ──
   function tryPlay(video) {
     video.muted = true;
     const p = video.play();
@@ -1386,15 +1370,17 @@
   const topSec = document.getElementById('portrait-marquee-top');
   if (topSec) ioTop.observe(topSec);
 
-  // ── LAZY PLAY — bottom 16:9 marquee ──
-  const ioBottom = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      lazyPlayRow(bottomTrack);
-      ioBottom.disconnect();
-    }
-  }, { threshold: 0, rootMargin: '200px' });
-  const bottomSec = document.getElementById('marquee-bottom');
-  if (bottomSec) ioBottom.observe(bottomSec);
+  // ── LAZY PLAY — bottom 16:9 marquee (desktop only) ──
+  if (!IS_MOBILE) {
+    const ioBottom = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        lazyPlayRow(document.getElementById('marquee-track-bottom'));
+        ioBottom.disconnect();
+      }
+    }, { threshold: 0, rootMargin: '200px' });
+    const bottomSec = document.getElementById('marquee-bottom');
+    if (bottomSec) ioBottom.observe(bottomSec);
+  }
 
   // ── iOS Safari: kick all paused videos on first user gesture ──
   function kickPausedVideos() {
@@ -1443,8 +1429,27 @@
     });
 
     let activeIdx = -1, cycleTimer = null, hasStarted = false;
+    let userPausedUntil = 0;
 
     function isDesktop() { return window.innerWidth >= 768; }
+
+    function nodeFraction(idx) {
+      const trackRect = document.getElementById('process-line-track').getBoundingClientRect();
+      const node = steps[idx].querySelector('.process-node');
+      if (!node) return idx / (TOTAL - 1);
+      const nodeRect = node.getBoundingClientRect();
+      if (isDesktop()) {
+        const trackW = trackRect.width;
+        if (trackW === 0) return idx / (TOTAL - 1);
+        const nodeCX = nodeRect.left + nodeRect.width / 2;
+        return Math.max(0, Math.min(1, (nodeCX - trackRect.left) / trackW));
+      } else {
+        const trackH = trackRect.height;
+        if (trackH === 0) return idx / (TOTAL - 1);
+        const nodeCY = nodeRect.top + nodeRect.height / 2;
+        return Math.max(0, Math.min(1, (nodeCY - trackRect.top) / trackH));
+      }
+    }
 
     function setLineFill(fraction) {
       if (isDesktop()) {
@@ -1484,13 +1489,22 @@
           bar.style.animation = '';
         }
       });
-      animateLineTo(idx < 0 ? 0 : idx / (TOTAL - 1), 500);
+      const frac = idx < 0 ? 0 : nodeFraction(idx);
+      animateLineTo(frac, 500);
     }
 
     function startCycle() {
       if (cycleTimer) clearTimeout(cycleTimer);
       let idx = 0;
-      function advance() { activateStep(idx); idx = (idx + 1) % TOTAL; cycleTimer = setTimeout(advance, CYCLE_DUR); }
+      function advance() {
+        if (Date.now() < userPausedUntil) {
+          cycleTimer = setTimeout(advance, userPausedUntil - Date.now() + 100);
+          return;
+        }
+        activateStep(idx);
+        idx = (idx + 1) % TOTAL;
+        cycleTimer = setTimeout(advance, CYCLE_DUR);
+      }
       advance();
     }
 
@@ -1522,6 +1536,20 @@
           }, 1200);
         }
       });
+
+      step.addEventListener('touchend', (e) => {
+        if (cycleTimer) { clearTimeout(cycleTimer); cycleTimer = null; }
+        activateStep(i);
+        userPausedUntil = Date.now() + 4000;
+        cycleTimer = setTimeout(() => {
+          let idx = (i + 1) % TOTAL;
+          (function advance() {
+            activateStep(idx);
+            idx = (idx + 1) % TOTAL;
+            cycleTimer = setTimeout(advance, CYCLE_DUR);
+          })();
+        }, 4000);
+      }, { passive: true });
     });
   })();
 
@@ -1741,6 +1769,13 @@
       }
       draw();
     }
+  }
+
+  // ── SERVICE WORKER (instant repeat visits) ──
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
   }
 
 })();
